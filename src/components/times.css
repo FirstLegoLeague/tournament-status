@@ -1,0 +1,32 @@
+.redTime > .CircularProgressbar-path {
+    stroke: red;
+}
+
+.yellowTime > .CircularProgressbar-path {
+    stroke: yellow;
+}
+
+.greenTime > .CircularProgressbar-path {
+    stroke: green;
+}
+
+.redTime > .CircularProgressbar-text {
+    fill: red;
+}
+
+.yellowTime > .CircularProgressbar-text {
+    fill: yellow;
+}
+
+.greenTime > .CircularProgressbar-text {
+    fill: green;
+}
+
+.CircularProgressbar-trail {
+    stroke: gray;
+}
+
+
+.CircularProgressbar-background {
+    fill: green;
+}
