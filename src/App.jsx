@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
-import Timer from './components/Timer';
+import Timer from './components/Timer.jsx';
 import 'react-circular-progressbar/dist/styles.css';
 import './App.scss';
 

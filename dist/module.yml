@@ -1,0 +1,4 @@
+api: "1.0"
+name: "tournament-status"
+type: web
+config:

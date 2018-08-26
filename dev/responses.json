@@ -1,0 +1,5 @@
+{
+	"env": {
+		"mhubUri": "ws://localhost:13900"
+	}
+}

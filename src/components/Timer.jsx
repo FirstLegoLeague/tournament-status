@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import './times.css'
-import Messenger from '../services/messenger';
+import Messenger from '../services/messenger.js';
 
 class Timer extends Component {
-  counter = 0;
-  prevDiff = 0;
-
-  nextUpData = {};
+  
 
   constructor(props) {
     super(props);
     this.updateTime = this.updateTime.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
+    this.counter = 0;
+    this.prevDiff = 0;
+  
+    this.nextUpData = {};
+
     setInterval(this.updateTime, 100);
 
     Messenger.init()
@@ -48,9 +50,9 @@ class Timer extends Component {
   */
 
   componentDidMount() {
+
     Messenger.on('tournament:nextmatch', (data, msg) => {
-      console.log(data)
-      this.nextUpData = data;
+      this.nextUpData = data.data;
     });
 
   }
@@ -87,7 +89,7 @@ class Timer extends Component {
 
     if (this.state) {
       let percentage = Math.abs(this.state.diffCircle / 150.0 * 100.0);
-      console.log(this.state.diffTime % 60);
+      //console.log(this.state.diffTime % 60);
       const seconds = (Math.floor(Math.abs(this.state.diffTime % 60)));
       let secondsString = `${seconds.toFixed(0)}`;
       if (Math.abs(seconds) < 10) {
