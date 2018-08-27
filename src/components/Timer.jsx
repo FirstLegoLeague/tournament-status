@@ -53,6 +53,7 @@ class Timer extends Component {
 
     Messenger.on('tournament:nextmatch', (data, msg) => {
       this.nextUpData = data.data;
+      this.updateTime()
     });
 
   }
@@ -88,17 +89,34 @@ class Timer extends Component {
   render() {
 
     if (this.state) {
-      let percentage = Math.abs(this.state.diffCircle / 150.0 * 100.0);
+      let percentage = Math.abs(this.state.diffCircle / 300.0 * 100.0);
+      
+      
       //console.log(this.state.diffTime % 60);
       const seconds = (Math.floor(Math.abs(this.state.diffTime % 60)));
       let secondsString = `${seconds.toFixed(0)}`;
+      let minutes = (Math.floor(Math.abs(this.state.diffTime / 60)));
+      let minuteString = `${minutes.toFixed(0)}`;
+      if(Math.abs(this.state.diffTime)>3600){
+        minutes = (Math.floor(Math.abs(this.state.diffTime / 60)%60));
+        minuteString = `${minutes.toFixed(0)}`;
+      }
+      
       if (Math.abs(seconds) < 10) {
         secondsString = `0${seconds}`
+      }if(Math.abs(minutes)<10){
+        minuteString = `0${minutes}`
       }
-
-      let text = `+${Math.floor(Math.abs(this.state.diffTime / 60))}:${secondsString}`;
+      let text = `+${minuteString}:${secondsString}`;
+      if(this.state.diffTime>3600){
+        text = `+${Math.floor(Math.abs(this.state.diffTime / 3600))}:${minuteString}:${secondsString}`;
+      }
+      
       if (this.state.diffTime < 0) {
         text = `-${Math.floor(Math.abs(this.state.diffTime / 60))}:${secondsString}`;
+      }
+      if(this.state.diffTime<-3600){
+        text = `-${Math.floor(Math.abs(this.state.diffTime / 3600))}:${minuteString}:${secondsString}`;
       }
       let timerclass = "greenTime";
       if (Math.floor(Math.abs(this.state.diffTime)) <= 30 && this.state.diffTime > 0) {
@@ -110,7 +128,7 @@ class Timer extends Component {
       }
       if (percentage <= 100.0) {
         return (
-          <div style={{ width: '400px' }}>
+          <div style={{ width: '400px' }} id="jello">
             <CircularProgressbar className={timerclass}
               percentage={percentage}
               text={`${text}`}
@@ -119,9 +137,12 @@ class Timer extends Component {
         );
       } else {
         return (
-          <div>
-            It's too much!
-            </div>
+          <div style={{ width: '400px' }}  id="jello">
+            <CircularProgressbar className={timerclass}
+              percentage={100}
+              text={`${text}`}
+            />
+          </div>
         );
       }
     } else {

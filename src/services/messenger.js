@@ -5,7 +5,11 @@ const MESSAGE_TYPES = {
   LOGIN: 'login',
   PUBLISH: 'publish'
 }
-const NODE = 'protected'
+
+let NODE = 'public'
+if(process.env.DEV){
+  NODE = 'public'
+}
 const IDENTITY_TOKEN_KEY = 'client-id'
 
 class Messenger {

@@ -1,5 +1,8 @@
 {
 	"env": {
 		"mhubUri": "ws://localhost:13900"
-	}
+	},
+	"tables":[
+		"Table 1","Table 2"
+	]
 }

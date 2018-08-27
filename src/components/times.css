@@ -3,7 +3,7 @@
 }
 
 .yellowTime > .CircularProgressbar-path {
-    stroke: yellow;
+    stroke: gold;
 }
 
 .greenTime > .CircularProgressbar-path {
@@ -15,7 +15,7 @@
 }
 
 .yellowTime > .CircularProgressbar-text {
-    fill: yellow;
+    fill: gold;
 }
 
 .greenTime > .CircularProgressbar-text {
@@ -29,4 +29,8 @@
 
 .CircularProgressbar-background {
     fill: green;
+}
+
+#jello{
+    background-color: black;
 }
