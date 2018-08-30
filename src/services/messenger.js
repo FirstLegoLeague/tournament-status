@@ -7,9 +7,9 @@ const MESSAGE_TYPES = {
 }
 
 let NODE = 'public'
-if(process.env.DEV){
-  NODE = 'public'
-}
+// if(process.env.DEV){
+//   NODE = 'public'
+// }
 const IDENTITY_TOKEN_KEY = 'client-id'
 
 class Messenger {

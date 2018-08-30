@@ -34,3 +34,7 @@
 #jello{
     background-color: black;
 }
+
+.progress-container {
+    width: 25em;
+}
