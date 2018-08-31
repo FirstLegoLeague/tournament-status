@@ -1,15 +1,22 @@
 import Environment from './env.js'
 
+const { getCorrelationId } = require('@first-lego-league/ms-correlation')
+
+const MHUB_NODES = {
+  PUBLIC: 'public',
+  PROTECTED: 'protected'
+}
+
 const MESSAGE_TYPES = {
   SUBSCRIBE: 'subscribe',
   LOGIN: 'login',
   PUBLISH: 'publish'
 }
 
-let NODE = 'public'
-// if(process.env.DEV){
-//   NODE = 'public'
-// }
+let NODE = MHUB_NODES.PUBLIC
+ // if(process.env.DEV){
+ //   NODE = MHUB_NODES.PUBLIC
+ // }
 const IDENTITY_TOKEN_KEY = 'client-id'
 
 class Messenger {

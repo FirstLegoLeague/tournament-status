@@ -3,7 +3,7 @@ const fs = require("fs");
 const {MockAPIRouter} = require('./mock-api-router.js');
 const app = express();
 
-app.set("port", process.env.PORT || 3001);
+app.set("port", process.env.PORT || 3002);
 
 app.use(MockAPIRouter);
 

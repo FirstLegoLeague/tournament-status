@@ -11,6 +11,7 @@
     ],
     "logging": "debug",
     "nodes": {
+		"default": "Exchange",
         "public": "Exchange",
         "protected": "Exchange",
         "configuration": {
