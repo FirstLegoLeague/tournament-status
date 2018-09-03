@@ -52,6 +52,7 @@ class Timer extends Component {
   componentDidMount() {
 
     Messenger.on('tournament:nextmatch', (data, msg) => {
+      console.info(data)
       this.nextUpData = data.data;
       this.updateTime()
     });
@@ -62,7 +63,14 @@ class Timer extends Component {
    * Update the display
   */
   updateTime() {
-    const timeString = (this.nextUpData.nextMatchTime) ? this.nextUpData.nextMatchTime : '00:00';
+    const nextMatchTimeDate = new Date(this.nextUpData.nextMatchTime);
+    let timeString = '00:00';
+    if(this.nextUpData.nextMatchTime){
+      const parts1 = nextMatchTimeDate.toTimeString().split(' ');
+      const timePart = parts1[0].split(':').slice(0,2);
+      timeString = `${timePart[0]}:${timePart[1]}`;
+    }
+
     const d = new Date();
 
 

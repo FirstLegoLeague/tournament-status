@@ -3,7 +3,7 @@ import Environment from './env.js'
 const { getCorrelationId } = require('@first-lego-league/ms-correlation')
 
 const MHUB_NODES = {
-  PUBLIC: 'public',
+  PUBLIC: 'default',
   PROTECTED: 'protected'
 }
 

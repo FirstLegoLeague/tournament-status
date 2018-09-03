@@ -21,7 +21,7 @@ class App extends Component {
                 </Timer>
               </div>
 
-              <TeamsTable numOfTables={4} matchWanted={2}>
+              <TeamsTable numOfTables={2} matchWanted={2}>
               </TeamsTable>
             </div>
 

@@ -75,6 +75,7 @@ export default class TeamsTable extends Component {
   componentDidMount() {
 
     Messenger.on('tournament:nextmatch', (data, msg) => {
+      console.log(data)
       const nextMatchTeams = data.data.nextTeams;
       const nextNextMatchTeams = data.data.nextNextTeams;
       const nextMatch = data.data.nextMatch;
