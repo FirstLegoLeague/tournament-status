@@ -13,7 +13,7 @@ class Timer extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
     this.counter = 0;
     this.prevDiff = 0;
-
+    this.numberOfMatchesSent = 2;
     this.nextUpData = {};
 
     setInterval(this.updateTime, 100);
@@ -30,21 +30,21 @@ class Timer extends Component {
     // });
   }
 
+  getNumOfMatches() {
+    return this.numberOfMatchesSent;
+  }
 
   /*
   * MHub "data" is of the form
-  * {
-  *    nextMatch: number,
-  *    nextMatchTime: string,
-  *    nextTeams: Array {
-  *       number:string,
-  *       name:string
-  *    },
-  *    nextNextTeams: Array {
-  *       number:string,
-  *       name:string
+  * [{
+  *    matchNumber: number,
+  *    matchStartTime: string,
+  *    teams: Array {
+  *       number:number,
+  *       name:string,
+  *       table:number
   *    }
-  * }
+  * }]
   * nextMatchTime has to be of the format "hh:mm"
   *
   */
@@ -63,35 +63,42 @@ class Timer extends Component {
    * Update the display
   */
   updateTime() {
-    const nextMatchTimeDate = new Date(this.nextUpData.nextMatchTime);
-    let timeString = '00:00';
-    if(this.nextUpData.nextMatchTime){
-      const parts1 = nextMatchTimeDate.toTimeString().split(' ');
-      const timePart = parts1[0].split(':').slice(0,2);
-      timeString = `${timePart[0]}:${timePart[1]}`;
+    this.numberOfMatchesSent = this.nextUpData.length;
+    if(this.nextUpData[0]){
+      let nextMatch = this.nextUpData[0]
+      const nextMatchTimeDate = new Date(nextMatch['matchStartTime']);
+      let timeString = '00:00';
+      if(nextMatch['matchStartTime']){
+        const parts1 = nextMatchTimeDate.toTimeString().split(' ');
+        const timePart = parts1[0].split(':').slice(0,2);
+        timeString = `${timePart[0]}:${timePart[1]}`;
+      }
+  
+      const d = new Date();
+  
+  
+      let diff = 0;
+      const splitTime = timeString.split(":");
+      if (splitTime.length === 2) {
+  
+        let nextHour = Number.parseInt(splitTime[0], 10);
+        const nextMinute = Number.parseInt(splitTime[1], 10);
+        const nextUpDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), nextHour, nextMinute);
+        diff = (nextUpDate - d) / 1000;
+      }
+      if (this.counter === 10) {
+        this.setState({diffTime: diff, diffCircle: diff});
+        this.prevDiff = diff;
+        this.counter = 0;
+      } else {
+        this.setState({diffTime: this.prevDiff, diffCircle: diff});
+      }
+      this.counter++;
+      return diff;
+    }else{
+      return 0;
     }
-
-    const d = new Date();
-
-
-    let diff = 0;
-    const splitTime = timeString.split(":");
-    if (splitTime.length === 2) {
-
-      let nextHour = Number.parseInt(splitTime[0], 10);
-      const nextMinute = Number.parseInt(splitTime[1], 10);
-      const nextUpDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), nextHour, nextMinute);
-      diff = (nextUpDate - d) / 1000;
-    }
-    if (this.counter === 10) {
-      this.setState({diffTime: diff, diffCircle: diff});
-      this.prevDiff = diff;
-      this.counter = 0;
-    } else {
-      this.setState({diffTime: this.prevDiff, diffCircle: diff});
-    }
-    this.counter++;
-    return diff;
+    
   }
 
   render() {

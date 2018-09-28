@@ -1,6 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Messenger from '../services/messenger.js';
 import './teamstable.css';
+import Environment from '../services/env.js';
+import axios from 'axios';
 // import '../../node_modules/react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 
 
@@ -8,9 +10,7 @@ export default class TeamsTable extends Component {
 
   constructor(props) {
     super(props);
-    this.tableNum = props.numOfTables;
-    this.matchesToShow = props.matchWanted;
-    this.state = {'tableNum': this.tableNum, 'matchesNum': this.matchesToShow};
+    
     this.columns = [{
       dataField: 'num',
       text: 'Match Number'
@@ -72,10 +72,33 @@ export default class TeamsTable extends Component {
     this.tableData = tableData;
   }
 
-  componentDidMount() {
+  createRealTableData(data) {
+    let tableData = [];
+    let rowEntry = {};
+  }
 
+  componentDidMount() {
+    if (!this.tableNum) {
+      let tablesUrlPromise = Environment.load().then(env => `${env.moduleTournamentUrl}/table/all`);
+      tablesUrlPromise.then(url => this.url = url).then(() => axios.get(this.url)).then(response => {
+        console.log(response);
+      });
+    }
     Messenger.on('tournament:nextmatch', (data, msg) => {
       console.log(data)
+      const matches = data.data;
+      let numOfMatches = matches.length;
+      if (matches[0]) {
+        let numOfTables = matches[0]['teams'].length || this.state.tableNum
+        if (numOfTables !== this.state.tableNum) {
+          this.setState({
+            'tableNum': numOfTables,
+            'matchesNum': numOfMatches
+          })
+        }
+      }
+
+
       const nextMatchTeams = data.data.nextTeams;
       const nextNextMatchTeams = data.data.nextNextTeams;
       const nextMatch = data.data.nextMatch;
@@ -83,7 +106,7 @@ export default class TeamsTable extends Component {
       for (let i = nextMatch; i < nextMatch + this.state.matchesNum; i++) {
         nextMatches.push(i);
       }
-      this.createTableData(nextMatches, nextMatchTeams, nextNextMatchTeams);
+      //this.createTableData(nextMatches, nextMatchTeams, nextNextMatchTeams);
       this.render()
       this.forceUpdate();
     });
@@ -111,13 +134,13 @@ export default class TeamsTable extends Component {
 
 
       toRender =
-          // style={{'width': '100%'}}
-          <div className="grid-padding-y cell">
-            <div className="cell grid-x">
-              {headers}
-            </div>
-            {rows}
+        // style={{'width': '100%'}}
+        <div className="grid-padding-y cell">
+          <div className="cell grid-x">
+            {headers}
           </div>
+          {rows}
+        </div>
     }
     return toRender;
 

@@ -1,7 +1,11 @@
 {
   "name": "tournament-status",
   "version": "0.1.0",
-  "private": true,
+  "scripts": {
+    "build": "webpack --mode production",
+    "mhub": "mhub-server -c ./dev/mhub.config.json",
+    "start": "webpack-dev-server --config webpack.config.js"
+  },
   "dependencies": {
     "@first-lego-league/user-interface": "1.2.4",
     "@first-lego-league/ms-auth": "^1.2.4",
@@ -35,11 +39,5 @@
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.5"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "webpack --mode production",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
   }
 }
