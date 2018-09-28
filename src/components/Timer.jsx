@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import './times.css'
-import Messenger from '../services/messenger.js';
+import Messenger from '../services/messenger';
 
 class Timer extends Component {
 
@@ -15,10 +15,8 @@ class Timer extends Component {
     this.prevDiff = 0;
     this.numberOfMatchesSent = 2;
     this.nextUpData = {};
-
     setInterval(this.updateTime, 100);
 
-    Messenger.init()
 
 
     // let self=this;
@@ -51,14 +49,14 @@ class Timer extends Component {
 
   componentDidMount() {
 
-    Messenger.on('tournament:nextmatch', (data, msg) => {
+    Messenger.subscribe('tournament:nextmatch', (data, msg) => {
       console.info(data)
       this.nextUpData = data.data;
       this.updateTime()
     });
 
-    Messenger.on('clock:time', (data, msg) => {
-      this.clockTime =  data.data.time
+    Messenger.subscribe('clock:time', (data, msg) => {
+      this.clockTime = data.data.time
     })
 
   }
@@ -68,41 +66,41 @@ class Timer extends Component {
   */
   updateTime() {
     this.numberOfMatchesSent = this.nextUpData.length;
-    if(this.nextUpData[0]){
-      let nextMatch = this.nextUpData.sort((match1, match2)=>match1.matchNumber-match2.matchNumber)[0]
+    if (this.nextUpData[0]) {
+      let nextMatch = this.nextUpData.sort((match1, match2) => match1.matchNumber - match2.matchNumber)[0]
       const nextMatchTimeDate = new Date(nextMatch['matchStartTime']);
       let timeString = '00:00';
-      if(nextMatch['matchStartTime']){
+      if (nextMatch['matchStartTime']) {
         const parts1 = nextMatchTimeDate.toTimeString().split(' ');
-        const timePart = parts1[0].split(':').slice(0,2);
+        const timePart = parts1[0].split(':').slice(0, 2);
         timeString = `${timePart[0]}:${timePart[1]}`;
       }
-  
+
       const d = new Date();
-  
-  
+
+
       let diff = 0;
       const splitTime = timeString.split(":");
       if (splitTime.length === 2) {
-  
+
         let nextHour = Number.parseInt(splitTime[0], 10);
         const nextMinute = Number.parseInt(splitTime[1], 10);
         const nextUpDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), nextHour, nextMinute);
         diff = (nextUpDate - d) / 1000;
       }
       if (this.counter === 10) {
-        this.setState({diffTime: diff, diffCircle: diff});
+        this.setState({ diffTime: diff, diffCircle: diff });
         this.prevDiff = diff;
         this.counter = 0;
       } else {
-        this.setState({diffTime: this.prevDiff, diffCircle: diff});
+        this.setState({ diffTime: this.prevDiff, diffCircle: diff });
       }
       this.counter++;
       return diff;
-    }else{
+    } else {
       return 0;
     }
-    
+
   }
 
   render() {
@@ -149,26 +147,26 @@ class Timer extends Component {
       /*<div style={{ width: '25em' }} id="jello" className="cell">*/      // </div>
       if (percentage <= 100.0) {
         return (
-            <div className="progress-container">
-              <CircularProgressbar className={timerclass}
-                                   percentage={percentage}
-                                   text={`${text}`}
-              />
-            </div>
+          <div className="progress-container">
+            <CircularProgressbar className={timerclass}
+              percentage={percentage}
+              text={`${text}`}
+            />
+          </div>
         );
       } else {
         return (
-            <div className="progress-container">
-              <CircularProgressbar className={timerclass}
-                                   percentage={100}
-                                   text={`${text}`}
-              />
-            </div>
+          <div className="progress-container">
+            <CircularProgressbar className={timerclass}
+              percentage={100}
+              text={`${text}`}
+            />
+          </div>
         );
       }
     } else {
       return (
-          <div>Problems!</div>
+        <div>Problems!</div>
       )
     }
 

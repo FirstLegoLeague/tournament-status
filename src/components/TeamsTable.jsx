@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Messenger from '../services/messenger.js';
+import Messenger from '../services/messenger';
 import './teamstable.css';
 import Environment from '../services/env.js';
 import axios from 'axios';
@@ -10,8 +10,8 @@ export default class TeamsTable extends Component {
 
   constructor(props) {
     super(props);
-    Messenger.init()
-
+    Messenger.publishMsg('protected','status:load')
+    
   }
 
   createTableData(matches) {
@@ -81,7 +81,7 @@ export default class TeamsTable extends Component {
       })
 
     }
-    Messenger.on('tournament:nextmatch', (data, msg) => {
+    Messenger.subscribe('tournament:nextmatch', (data, msg) => {
       const matches = data.data;
       let numOfMatches = matches.length;
       if (this.rawTables) {

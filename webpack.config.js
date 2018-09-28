@@ -59,5 +59,9 @@ module.exports = {
     setup: function(app) {
       app.use(MockAPIRouter);
     }
-  }
+  },
+  node:{
+    fs: "empty"
+  },
+  target: 'web'
 };
