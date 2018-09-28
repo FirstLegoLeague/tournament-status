@@ -2,7 +2,8 @@
   "name": "tournament-status",
   "version": "0.1.0",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "webpack --mode development",
+    "build-dev": "webpack --mode development --config webpack.development.config.js",
     "mhub": "mhub-server -c ./dev/mhub.config.json",
     "start": "webpack-dev-server --config webpack.config.js"
   },

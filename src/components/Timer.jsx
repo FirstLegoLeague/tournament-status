@@ -57,6 +57,10 @@ class Timer extends Component {
       this.updateTime()
     });
 
+    Messenger.on('clock:time', (data, msg) => {
+      this.clockTime =  data.data.time
+    })
+
   }
 
   /*
@@ -65,7 +69,7 @@ class Timer extends Component {
   updateTime() {
     this.numberOfMatchesSent = this.nextUpData.length;
     if(this.nextUpData[0]){
-      let nextMatch = this.nextUpData[0]
+      let nextMatch = this.nextUpData.sort((match1, match2)=>match1.matchNumber-match2.matchNumber)[0]
       const nextMatchTimeDate = new Date(nextMatch['matchStartTime']);
       let timeString = '00:00';
       if(nextMatch['matchStartTime']){
