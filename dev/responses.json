@@ -1,6 +1,7 @@
 {
 	"env": {
-		"mhubUri": "ws://localhost:13900"
+		"mhubUri": "ws://localhost:13900",
+"moduleTournamentUrl":"http://localhost:3001"
 	},
 	"tables":[
 		"Table 1","Table 2"

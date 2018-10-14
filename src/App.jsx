@@ -14,15 +14,6 @@ import axios from 'axios'
 import Environment from './services/env'
 
 class App extends Component {
-  constructor() {
-    super()
-    let tablesUrlPromise = Environment.load().then(env => `${env.moduleTournamentUrl}/table/all`);
-
-    tablesUrlPromise.then(url => this.url = url).then(() => axios.get(this.url)).then(response => {
-      console.log(response);
-    })
-  }
-
   render() {
 
     return (
