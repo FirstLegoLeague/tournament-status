@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import './times.css'
+import '../../css/components/times.css'
 import Messenger from '../services/messenger';
 
 class Timer extends Component {
@@ -17,15 +17,6 @@ class Timer extends Component {
     this.nextUpData = {};
     setInterval(this.updateTime, 100);
 
-
-
-    // let self=this;
-    // axios.get("http://localhost:3001/match/current").then((res) => {
-    //   self.setState({mNum: res.data.matchId});
-    //   console.log(self.state);
-    // }, (err) => {
-    //   console.error(err);
-    // });
   }
 
   getNumOfMatches() {
@@ -49,13 +40,13 @@ class Timer extends Component {
 
   componentDidMount() {
 
-    Messenger.subscribe('tournament:nextmatch', (data, msg) => {
+    Messenger.on('tournament:nextmatch', (data, msg) => {
       console.info(data)
       this.nextUpData = data.data;
       this.updateTime()
     });
 
-    Messenger.subscribe('clock:time', (data, msg) => {
+    Messenger.on('clock:time', (data, msg) => {
       this.clockTime = data.data.time
     })
 
