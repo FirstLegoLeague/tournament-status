@@ -1,30 +1,14 @@
 import React, { Component } from 'react';
 import '@first-lego-league/user-interface/current/assets/js/app.js'
-
 import '@first-lego-league/user-interface/current/assets/css/app.css'
-
-import 'react-circular-progressbar/dist/styles.css';
 import './App.scss';
+import 'react-circular-progressbar/dist/styles.css';
 
-
-
-import TeamsTable from './components/TeamsTable.jsx';
-import Timer from './components/Timer.jsx';
-import axios from 'axios'
-import Environment from './services/env'
+import TeamsTable from './js/components/TeamsTable.jsx';
+import Timer from './js/components/Timer.jsx';
 
 class App extends Component {
-  constructor() {
-    super()
-    let tablesUrlPromise = Environment.load().then(env => `${env.moduleTournamentUrl}/table/all`);
-
-    tablesUrlPromise.then(url => this.url = url).then(() => axios.get(this.url)).then(response => {
-      console.log(response);
-    })
-  }
-
   render() {
-
     return (
       <div className="App">
         <div className="grid-container">
@@ -34,15 +18,14 @@ class App extends Component {
               </Timer>
             </div>
 
-            <TeamsTable numOfTables={2} matchWanted={2}>
+            <TeamsTable numOfTables={ 2 } matchWanted={ 2 }>
             </TeamsTable>
           </div>
 
         </div>
       </div>
-    )
-      ;
+    );
   }
 }
 
-export default App;
+export default App
