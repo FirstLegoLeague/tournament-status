@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import './times.css'
-import Messenger from '../services/messenger.js';
+import '../../css/components/times.css'
+import Messenger from '../services/messenger';
 
-export default class Timer extends Component {
+class Timer extends Component {
 
 
   constructor(props) {
@@ -15,19 +15,8 @@ export default class Timer extends Component {
     this.prevDiff = 0;
     this.numberOfMatchesSent = 2;
     this.nextUpData = {};
-
     setInterval(this.updateTime, 100);
 
-    Messenger.init()
-
-
-    // let self=this;
-    // axios.get("http://localhost:3001/match/current").then((res) => {
-    //   self.setState({mNum: res.data.matchId});
-    //   console.log(self.state);
-    // }, (err) => {
-    //   console.error(err);
-    // });
   }
 
   getNumOfMatches() {
@@ -57,6 +46,10 @@ export default class Timer extends Component {
       this.updateTime()
     });
 
+    Messenger.on('clock:time', (data, msg) => {
+      this.clockTime = data.data.time
+    })
+
   }
 
   /*
@@ -64,13 +57,13 @@ export default class Timer extends Component {
   */
   updateTime() {
     this.numberOfMatchesSent = this.nextUpData.length;
-    if(this.nextUpData[0]){
-      let nextMatch = this.nextUpData[0]
+    if (this.nextUpData[0]) {
+      let nextMatch = this.nextUpData.sort((match1, match2) => match1.matchNumber - match2.matchNumber)[0]
       const nextMatchTimeDate = new Date(nextMatch['matchStartTime']);
       let timeString = '00:00';
-      if(nextMatch['matchStartTime']){
+      if (nextMatch['matchStartTime']) {
         const parts1 = nextMatchTimeDate.toTimeString().split(' ');
-        const timePart = parts1[0].split(':').slice(0,2);
+        const timePart = parts1[0].split(':').slice(0, 2);
         timeString = `${timePart[0]}:${timePart[1]}`;
       }
 
@@ -87,15 +80,15 @@ export default class Timer extends Component {
         diff = (nextUpDate - d) / 1000;
       }
       if (this.counter === 10) {
-        this.setState({diffTime: diff, diffCircle: diff});
+        this.setState({ diffTime: diff, diffCircle: diff });
         this.prevDiff = diff;
         this.counter = 0;
       } else {
-        this.setState({diffTime: this.prevDiff, diffCircle: diff});
+        this.setState({ diffTime: this.prevDiff, diffCircle: diff });
       }
       this.counter++;
       return diff;
-    }else{
+    } else {
       return 0;
     }
 
@@ -145,28 +138,30 @@ export default class Timer extends Component {
       /*<div style={{ width: '25em' }} id="jello" className="cell">*/      // </div>
       if (percentage <= 100.0) {
         return (
-            <div className="progress-container">
-              <CircularProgressbar className={timerclass}
-                                   percentage={percentage}
-                                   text={`${text}`}
-              />
-            </div>
+          <div className="progress-container">
+            <CircularProgressbar className={timerclass}
+              percentage={percentage}
+              text={`${text}`}
+            />
+          </div>
         );
       } else {
         return (
-            <div className="progress-container">
-              <CircularProgressbar className={timerclass}
-                                   percentage={100}
-                                   text={`${text}`}
-              />
-            </div>
+          <div className="progress-container">
+            <CircularProgressbar className={timerclass}
+              percentage={100}
+              text={`${text}`}
+            />
+          </div>
         );
       }
     } else {
       return (
-          <div>Problems!</div>
+        <div>Problems!</div>
       )
     }
 
   }
 }
+
+export default Timer;
