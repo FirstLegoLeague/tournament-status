@@ -6,10 +6,10 @@ import '@first-lego-league/user-interface/current/assets/css/app.css'
 import 'react-circular-progressbar/dist/styles.css'
 import './App.scss'
 
-import TeamsTable from './components/TeamsTable.jsx'
-import Timer from './components/Timer.jsx'
+import TeamsTable from './js/components/TeamsTable.jsx'
+import Timer from './js/components/Timer.jsx'
 import axios from 'axios'
-import Environment from './services/env'
+import Environment from './js/services/env'
 
 export default class App extends Component {
 
