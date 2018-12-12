@@ -1,9 +1,7 @@
 import axios from 'axios'
 
-let ENV_URL = 'http://localhost:3002/environment.json'
-// if(process.env.DEV){
-// 	ENV_URL = 'http://localhost:3001/environment.json'
-// }
+let ENV_URL = '/environment.json'
+
 class Environment {
 
 	load () {

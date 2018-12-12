@@ -9,8 +9,8 @@
     border: 1px solid black;
 }
 .match-cell{
-    /*border-left: 1px solid black;*/
-    /*border-right: 1px solid black;*/
+    border-left: 1px solid black;
+    border-right: 1px solid black;
     padding-left: 1em;
 }
 div .cell {

@@ -1,48 +1,46 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import '@first-lego-league/user-interface/current/assets/js/app.js'
 
 import '@first-lego-league/user-interface/current/assets/css/app.css'
 
-import 'react-circular-progressbar/dist/styles.css';
-import './App.scss';
+import 'react-circular-progressbar/dist/styles.css'
+import './App.scss'
 
-
-
-import TeamsTable from './components/TeamsTable.jsx';
-import Timer from './components/Timer.jsx';
+import TeamsTable from './components/TeamsTable.jsx'
+import Timer from './components/Timer.jsx'
 import axios from 'axios'
 import Environment from './services/env'
 
-class App extends Component {
-  constructor() {
-    super()
-    let tablesUrlPromise = Environment.load().then(env => `${env.moduleTournamentUrl}/table/all`);
+export default class App extends Component {
 
+  constructor (props) {
+    super(props)
+    this.state = {
+      tables: []
+    }
+  }
+
+  componentDidMount () {
+    let tablesUrlPromise = Environment.load().then(env => `${env.moduleTournamentUrl}/table/all`)
     tablesUrlPromise.then(url => this.url = url).then(() => axios.get(this.url)).then(response => {
-      console.log(response);
+      this.setState({tables: response.data})
     })
   }
 
-  render() {
-
+  render () {
     return (
       <div className="App">
         <div className="grid-container">
-          <div className="grid-padding-y align-center">
-            <div className="cell grid-x align-center">
-              <Timer>
-              </Timer>
+          <div className="callout">
+            <div className="grid-padding-y align-center">
+              <div className="cell grid-x align-center">
+                <Timer/>
+              </div>
+              <TeamsTable/>
             </div>
-
-            <TeamsTable numOfTables={2} matchWanted={2}>
-            </TeamsTable>
           </div>
-
         </div>
       </div>
     )
-      ;
   }
 }
-
-export default App;

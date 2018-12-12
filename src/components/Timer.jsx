@@ -4,7 +4,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import './times.css'
 import Messenger from '../services/messenger.js';
 
-class Timer extends Component {
+export default class Timer extends Component {
 
 
   constructor(props) {
@@ -73,14 +73,14 @@ class Timer extends Component {
         const timePart = parts1[0].split(':').slice(0,2);
         timeString = `${timePart[0]}:${timePart[1]}`;
       }
-  
+
       const d = new Date();
-  
-  
+
+
       let diff = 0;
       const splitTime = timeString.split(":");
       if (splitTime.length === 2) {
-  
+
         let nextHour = Number.parseInt(splitTime[0], 10);
         const nextMinute = Number.parseInt(splitTime[1], 10);
         const nextUpDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), nextHour, nextMinute);
@@ -98,7 +98,7 @@ class Timer extends Component {
     }else{
       return 0;
     }
-    
+
   }
 
   render() {
@@ -170,5 +170,3 @@ class Timer extends Component {
 
   }
 }
-
-export default Timer;
