@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import Time from 'react-time-format'
-import Messenger from '../services/messenger.js'
 import '../../css/components/teamstable.css'
 import Environment from '../services/env.js'
-import axios from 'axios'
+import RestResource from '../classes/RestResource'
+import MhubResource from '../classes/MhubResource'
 
 const COLUMN_NAMES = ['Match #', 'Start Time', 'End Time']
 const MATCH_FIELD = [
@@ -23,7 +23,6 @@ const MATCH_FIELD = [
 export default class TeamsTable extends Component {
 
   envPromise
-  tableUrlPromise
 
   constructor (props) {
     super(props)
@@ -34,27 +33,25 @@ export default class TeamsTable extends Component {
     }
 
     this.envPromise = Environment.load()
-    this.tableUrlPromise = Environment.load().then(env => `${env.moduleTournamentUrl}/table/all`).then(url => this.tableUrl = url).then(() => axios.get(this.tableUrl))
-    this.upcomingMatchesPromise = Environment.load().then(env => `${env.moduleTournamentUrl}/match/upcoming`).then(url => this.upcomingUrl = url).then(() => axios.get(this.upcomingUrl))
-    this.currentMatchPromise = Environment.load().then(env => `${env.moduleTournamentUrl}/match/current`).then(url => this.currentUrl = url).then(() => axios.get(this.currentUrl))
+    this.tablesResource = new RestResource(Environment.load().then(env => `${env.moduleTournamentUrl}/table/all`), 'tables:reload')
+    this.upcomingMatchesResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/upcoming`), 'UpcomingMatches:reload')
+    this.currentMatchResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/current`), '')
 
-    Messenger.init()
   }
 
   componentDidMount () {
 
-    Promise.resolve(this.tableUrlPromise).then(response => {
-      this.setState({tables: response.data})
-    })
+    this.tablesResource.onReload = () => {
+      Promise.resolve(this.tablesResource.data).then(data => {
+        this.setState({tables: data})
+      })
+    }
 
-    Promise.resolve(this.upcomingMatchesPromise).then(response => {
-      this.setState({upcomingMatches: response.data})
-    })
-
-    Messenger.on('UpcomingMatches:reload', (data, msg) => {
-      const matches = data.data
-      this.setState({upcomingMatches: matches})
-    })
+    this.upcomingMatchesResource.onReload = () => {
+      Promise.resolve(this.upcomingMatchesResource.data).then(data => {
+        this.setState({upcomingMatches: data})
+      })
+    }
 
   }
 

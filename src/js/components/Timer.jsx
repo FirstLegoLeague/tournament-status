@@ -5,6 +5,7 @@ import '../../css/components/times.css'
 import Messenger from '../services/messenger'
 import Environment from '../services/env'
 import axios from 'axios'
+import MhubResource from '../classes/MhubResource'
 
 const THRESHOLD_IN_MINUTES = 2
 
@@ -14,32 +15,29 @@ class Timer extends Component {
     super(props)
 
     this.state = {
-      nextUpMatches: [],
+      upcomingMatches: [],
       millisecondsTillNextMatch: 0,
       timeThreshold: THRESHOLD_IN_MINUTES * 60 * 1000
     }
 
-    this.upcomingMatchesPromise = Environment.load().then(env => `${env.moduleTournamentUrl}/match/upcoming`).then(url => this.upcomingUrl = url).then(() => axios.get(this.upcomingUrl))
+    this.upcomingMatchesResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/upcoming`), 'UpcomingMatches:reload')
 
     setInterval(this.updateTime.bind(this), 1000)
   }
 
   componentDidMount () {
 
-    Promise.resolve(this.upcomingMatchesPromise).then(response => {
-      this.setState({nextUpMatches: response.data.sort(this.sortMatchesByTime)})
-    })
-
-    Messenger.on('UpcomingMatches:reload', (data, msg) => {
-      this.setState({nextUpMatches: data.data.sort(this.sortMatchesByTime)})
-      this.updateTime()
-    })
+    this.upcomingMatchesResource.onReload = () => {
+      Promise.resolve(this.upcomingMatchesResource.data).then(data => {
+        this.setState({upcomingMatches: data})
+      })
+    }
 
   }
 
   updateTime () {
     const currentTime = new Date()
-    let millisecondsTillNextMatch = new Date(this.state.nextUpMatches[0].startTime).getTime() - currentTime.getTime()
+    let millisecondsTillNextMatch = new Date(this.state.upcomingMatches[0].startTime).getTime() - currentTime.getTime()
     this.setState({millisecondsTillNextMatch})
   }
 
