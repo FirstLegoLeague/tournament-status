@@ -58,7 +58,7 @@ class Messenger {
 
             self.listeners.filter(listener => {
               return (typeof(listener.topic) === 'string' && topic === listener.topic) ||
-                (listener.topic instanceof RegExp && topic.matches(listener.topic))
+                (listener.topic instanceof RegExp && topic.upcomingMatches(listener.topic))
             }).forEach(listener => listener.handler(data, msg))
           }
         })

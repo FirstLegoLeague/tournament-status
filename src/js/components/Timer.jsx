@@ -40,7 +40,7 @@ class Timer extends Component {
 
   componentDidMount() {
 
-    Messenger.on('tournament:nextmatch', (data, msg) => {
+    Messenger.on('CurrentMatch:reload', (data, msg) => {
       console.info(data)
       this.nextUpData = data.data;
       this.updateTime()

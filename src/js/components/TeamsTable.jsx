@@ -30,31 +30,36 @@ export default class TeamsTable extends Component {
 
     this.state = {
       tables: [],
-      matches: []
+      upcomingMatches: []
     }
 
     this.envPromise = Environment.load()
-    this.tableUrlPromise = Environment.load().then(env => `${env.moduleTournamentUrl}/table/all`)
+    this.tableUrlPromise = Environment.load().then(env => `${env.moduleTournamentUrl}/table/all`).then(url => this.tableUrl = url).then(() => axios.get(this.tableUrl))
+    this.upcomingMatchesPromise = Environment.load().then(env => `${env.moduleTournamentUrl}/match/upcoming`).then(url => this.upcomingUrl = url).then(() => axios.get(this.upcomingUrl))
+    this.currentMatchPromise = Environment.load().then(env => `${env.moduleTournamentUrl}/match/current`).then(url => this.currentUrl = url).then(() => axios.get(this.currentUrl))
 
     Messenger.init()
   }
 
   componentDidMount () {
 
-    Promise.resolve(this.tableUrlPromise).then(url => this.url = url).then(() => axios.get(this.url)).then(response => {
-      console.log(response.data)
+    Promise.resolve(this.tableUrlPromise).then(response => {
       this.setState({tables: response.data})
+    })
+
+    Promise.resolve(this.upcomingMatchesPromise).then(response => {
+      this.setState({upcomingMatches: response.data})
     })
 
     Messenger.on('UpcomingMatches:reload', (data, msg) => {
       const matches = data.data
-      this.setState({matches: matches})
+      this.setState({upcomingMatches: matches})
     })
 
   }
 
   render () {
-    if (!isArrayEmpty(this.state.matches)) {
+    if (!isArrayEmpty(this.state.upcomingMatches)) {
       const headers = []
       const rows = []
 
@@ -68,23 +73,26 @@ export default class TeamsTable extends Component {
       }
 
       // Creating table records
-      for (let j = 0; j < this.state.matches.length; j++) {
+      for (let j = 0; j < this.state.upcomingMatches.length; j++) {
         let rowJSX = []
 
         for (let i = 0; i < MATCH_FIELD.length; i++) {
           switch (MATCH_FIELD[i].type) {
             case 'date':
-              rowJSX.push(<div className="cell auto match-cell"><Time value={this.state.matches[j][MATCH_FIELD[i].name]}
-                                                                      format="HH:mm:ss"/></div>)
+              rowJSX.push(<div className="cell auto match-cell"><Time
+                value={this.state.upcomingMatches[j][MATCH_FIELD[i].name]}
+                format="HH:mm:ss"/></div>)
               break
             default:
-              rowJSX.push(<div className="cell auto match-cell">{this.state.matches[j][MATCH_FIELD[i].name]}</div>)
+              rowJSX.push(<div
+                className="cell auto match-cell">{this.state.upcomingMatches[j][MATCH_FIELD[i].name]}</div>)
               break
           }
         }
 
-        for (let i = 0; i < this.state.matches[j].matchTeams.length; i++) {
-          rowJSX.push(<div className="cell auto match-cell">{this.state.matches[j].matchTeams[i].teamNumber}</div>)
+        for (let i = 0; i < this.state.upcomingMatches[j].matchTeams.length; i++) {
+          rowJSX.push(<div
+            className="cell auto match-cell">{this.state.upcomingMatches[j].matchTeams[i].teamNumber}</div>)
         }
 
         rows.push(<div className="cell grid-x match-row">{rowJSX}</div>)
@@ -104,5 +112,8 @@ export default class TeamsTable extends Component {
 }
 
 function isArrayEmpty (arr) {
-  return arr.length === 0 || arr.some(x => !x)
+  if (Array.isArray(arr)) {
+    return arr.length === 0 || arr.some(x => !x)
+  }
+  return false
 }
