@@ -5,7 +5,7 @@ const MESSAGE_TYPES = {
   LOGIN: 'login',
   PUBLISH: 'publish'
 }
-const NODE = 'default'
+const NODE = 'protected'
 const IDENTITY_TOKEN_KEY = 'client-id'
 const RETRY_TIMEOUT = 1000 // second
 
@@ -22,11 +22,17 @@ class Messenger {
         this.headers[IDENTITY_TOKEN_KEY] = parseInt(Math.floor(0x100000*(Math.random())), 16)
         this.listeners = this.listeners || []
 
+        let node = NODE;
+
+        if(env.mhubNode){
+          node = env.mhubNode;
+        }
+
         return new Promise((resolve, reject) => {
           self.ws.onopen = function () {
             self.ws.send(JSON.stringify({
               type: MESSAGE_TYPES.SUBSCRIBE,
-              node: NODE
+              node: node
             }));
 
             self.open = true
