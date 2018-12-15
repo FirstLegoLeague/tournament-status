@@ -8,6 +8,7 @@ import './App.scss'
 
 import TeamsTable from './js/components/TeamsTable.jsx'
 import Timer from './js/components/Timer.jsx'
+import Clock from 'react-live-clock'
 import axios from 'axios'
 import Environment from './js/services/env'
 
@@ -32,6 +33,7 @@ export default class App extends Component {
       <div className="App">
         <div className="grid-container">
           <div className="callout">
+            <Clock format={'HH:mm:ss'} ticking={true}/>
             <div className="grid-padding-y align-center">
               <div className="cell grid-x align-center">
                 <Timer/>
