@@ -5,7 +5,7 @@ import Environment from '../services/env.js'
 import RestResource from '../classes/RestResource'
 import MhubResource from '../classes/MhubResource'
 
-const COLUMN_NAMES = ['Match #', 'Stage', 'Start Time', 'End Time']
+const COLUMN_NAMES = ['Match #', 'Stage', 'Start Time']
 const MATCH_FIELD = [
   {
     name: 'matchId',
@@ -17,10 +17,6 @@ const MATCH_FIELD = [
   },
   {
     name: 'startTime',
-    type: 'date'
-  },
-  {
-    name: 'endTime',
     type: 'date'
   }]
 
@@ -39,7 +35,6 @@ export default class TeamsTable extends Component {
     this.envPromise = Environment.load()
     this.tablesResource = new RestResource(Environment.load().then(env => `${env.moduleTournamentUrl}/table/all`), 'tables:reload')
     this.upcomingMatchesResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/upcoming`), 'UpcomingMatches:reload')
-    this.currentMatchResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/current`), '')
 
   }
 

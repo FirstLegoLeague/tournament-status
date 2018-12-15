@@ -19,6 +19,7 @@ class Timer extends Component {
     }
 
     this.upcomingMatchesResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/upcoming`), 'UpcomingMatches:reload')
+    this.currentMatchResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/current`), 'CurrentMatch:reload')
 
     setInterval(this.updateTime.bind(this), 1000)
   }
@@ -31,19 +32,27 @@ class Timer extends Component {
       })
     }
 
+    this.currentMatchResource.onReload = () => {
+      Promise.resolve(this.currentMatchResource.data).then(data => {
+        this.setState({currentMatch: data})
+      })
+    }
+
   }
 
   updateTime () {
     const currentTime = new Date()
-    let millisecondsTillNextMatch = new Date(this.state.upcomingMatches[0].startTime).getTime() - currentTime.getTime()
-    this.setState({millisecondsTillNextMatch})
+    if (this.state.upcomingMatches.length > 0) {
+      let millisecondsTillNextMatch = new Date(this.state.upcomingMatches[0].startTime).getTime() - currentTime.getTime()
+      this.setState({millisecondsTillNextMatch})
+    }
   }
 
   render () {
 
     if (this.state) {
-      let percentage = Math.abs(this.state.millisecondsTillNextMatch / 300.0 * 100.0)
 
+      let percentage = this.calculatePercent()
       let text = this.getTimeText(this.state.millisecondsTillNextMatch)
 
       let timerclass = 'greenTime'
@@ -76,6 +85,20 @@ class Timer extends Component {
 
   }
 
+  calculatePercent () {
+    let fullCircleSeconds = 1000 * 60 * 60 * 5 // 5 minutes default
+
+    if (this.state.upcomingMatches.length > 0 && this.state.currentMatch) {
+      if (this.state.millisecondsTillNextMatch >= 0) {
+        fullCircleSeconds = (new Date(this.state.upcomingMatches[0].startTime) - new Date(this.state.currentMatch.startTime))
+      } else {
+        fullCircleSeconds = (new Date(this.state.currentMatch.startTime) - new Date(this.state.upcomingMatches[0].startTime))
+      }
+    }
+
+    return ((this.state.millisecondsTillNextMatch) / fullCircleSeconds) * 100
+  }
+
   padNumber (number, size) {
     let s = String(number)
     while (s.length < (size || 2)) {s = '0' + s}
@@ -95,7 +118,9 @@ class Timer extends Component {
       let seconds = Math.floor(delta % 60)
 
       let daysString = days !== 0 ? `${this.padNumber(days, 2)}:` : ''
-      return `${milliseconds < 0 ? '-' : ''}  ${daysString}${this.padNumber(hours, 2)}:${this.padNumber(minutes, 2)}:${this.padNumber(seconds, 2)}`
+      let hoursString = hours !== 0 ? `${this.padNumber(hours, 2)}:` : ''
+      let minutesPad = hours !== 0 ? 2 : 1
+      return `${milliseconds < 0 ? '-' : '+'}  ${daysString}${hoursString}${this.padNumber(minutes, minutesPad)}:${this.padNumber(seconds, 2)}`
     }
 
     return 'Unknown'
