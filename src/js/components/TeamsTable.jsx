@@ -5,10 +5,14 @@ import Environment from '../services/env.js'
 import RestResource from '../classes/RestResource'
 import MhubResource from '../classes/MhubResource'
 
-const COLUMN_NAMES = ['Match #', 'Start Time', 'End Time']
+const COLUMN_NAMES = ['Match #', 'Stage', 'Start Time', 'End Time']
 const MATCH_FIELD = [
   {
     name: 'matchId',
+    type: 'string'
+  },
+  {
+    name: 'stage',
     type: 'string'
   },
   {
@@ -62,11 +66,11 @@ export default class TeamsTable extends Component {
 
       // Creating table headers
       for (let i = 0; i < COLUMN_NAMES.length; i++) {
-        headers.push(<div className="cell auto header">{COLUMN_NAMES[i]}</div>)
+        headers.push(<th>{COLUMN_NAMES[i]}</th>)
       }
 
       for (let i = 0; i < this.state.tables.length; i++) {
-        headers.push(<div className="cell auto header">{this.state.tables[i].tableName}</div>)
+        headers.push(<th>{this.state.tables[i].tableName}</th>)
       }
 
       // Creating table records
@@ -76,31 +80,33 @@ export default class TeamsTable extends Component {
         for (let i = 0; i < MATCH_FIELD.length; i++) {
           switch (MATCH_FIELD[i].type) {
             case 'date':
-              rowJSX.push(<div className="cell auto match-cell"><Time
+              rowJSX.push(<td><Time
                 value={this.state.upcomingMatches[j][MATCH_FIELD[i].name]}
-                format="HH:mm:ss"/></div>)
+                format="HH:mm:ss"/></td>)
               break
             default:
-              rowJSX.push(<div
-                className="cell auto match-cell">{this.state.upcomingMatches[j][MATCH_FIELD[i].name]}</div>)
+              rowJSX.push(<td>{this.state.upcomingMatches[j][MATCH_FIELD[i].name]}</td>)
               break
           }
         }
 
         for (let i = 0; i < this.state.upcomingMatches[j].matchTeams.length; i++) {
-          rowJSX.push(<div
-            className="cell auto match-cell">{this.state.upcomingMatches[j].matchTeams[i].teamNumber}</div>)
+          rowJSX.push(<td>{this.state.upcomingMatches[j].matchTeams[i].teamNumber}</td>)
         }
 
-        rows.push(<div className="cell grid-x match-row">{rowJSX}</div>)
+        rows.push(<tr>{rowJSX}</tr>)
       }
       return (
-        <div className="grid-padding-y cell">
-          <div className="cell grid-x">
+        <table>
+          <thead>
+          <tr>
             {headers}
-          </div>
+          </tr>
+          </thead>
+          <tbody>
           {rows}
-        </div>
+          </tbody>
+        </table>
       )
     }
 

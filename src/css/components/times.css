@@ -1,38 +1,35 @@
+:root {
+    --afterTime: red;
+    --onTime: gold;
+    --aheadTime: green;
+}
+
 .redTime > .CircularProgressbar-path {
-    stroke: red;
+    stroke: var(--afterTime);
 }
 
 .yellowTime > .CircularProgressbar-path {
-    stroke: gold;
+    stroke: var(--onTime);
 }
 
 .greenTime > .CircularProgressbar-path {
-    stroke: green;
+    stroke: var(--aheadTime);
 }
 
 .redTime > .CircularProgressbar-text {
-    fill: red;
+    fill: var(--afterTime);
 }
 
 .yellowTime > .CircularProgressbar-text {
-    fill: gold;
+    fill: var(--onTime);
 }
 
 .greenTime > .CircularProgressbar-text {
-    fill: green;
+    fill: var(--aheadTime);
 }
 
 .CircularProgressbar-trail {
     stroke: gray;
-}
-
-
-.CircularProgressbar-background {
-    fill: green;
-}
-
-#jello{
-    background-color: black;
 }
 
 .progress-container {

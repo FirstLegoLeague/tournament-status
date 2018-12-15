@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import CircularProgressbar from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 import '../../css/components/times.css'
-import Messenger from '../services/messenger'
 import Environment from '../services/env'
-import axios from 'axios'
 import MhubResource from '../classes/MhubResource'
 
 const THRESHOLD_IN_MINUTES = 2
@@ -56,26 +54,20 @@ class Timer extends Component {
       } else if (this.state.millisecondsTillNextMatch > this.state.timeThreshold) {
         timerclass = 'greenTime'
       }
+      return (
+        <div className="progress-container">
+          <CircularProgressbar className={timerclass}
+                               percentage={percentage}
+                               text={`${text}`}
+                               styles={{
+                                 text: {
+                                   fontSize: '12px'
+                                 }
+                               }}
+          />
+        </div>
+      )
 
-      if (percentage <= 100.0) {
-        return (
-          <div className="progress-container">
-            <CircularProgressbar className={timerclass}
-                                 percentage={percentage}
-                                 text={`${text}`}
-            />
-          </div>
-        )
-      } else {
-        return (
-          <div className="progress-container">
-            <CircularProgressbar className={timerclass}
-                                 percentage={100}
-                                 text={`${text}`}
-            />
-          </div>
-        )
-      }
     } else {
       return (
         <div>Problems!</div>
