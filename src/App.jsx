@@ -36,15 +36,19 @@ export default class App extends Component {
           <div className="grid-container">
             <div className="grid-padding-y align-center">
               <div className="cell medium-8">
-                <div className="cell grid-x align-center">
-                  <div className="cell medium-6">
-                    <Clock format={'HH:mm:ss'} ticking={true}/>
-                    <div>
-                      <CurrentMatch/>
+                <div className="grid-y align-center">
+                  <div className="grid-padding-x align-center">
+                    <div className="cell medium-auto">
+                      <div className="cell medium-1">
+                        <h4><Clock format={'HH:mm:ss'} ticking={true}/></h4>
+                      </div>
+                      <div className="cell medium-1">
+                        <CurrentMatch/>
+                      </div>
+                      <div className="cell medium-10">
+                        <Timer/>
+                      </div>
                     </div>
-                  </div>
-                  <div className="cell medium-6">
-                    <Timer/>
                   </div>
                 </div>
               </div>
