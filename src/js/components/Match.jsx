@@ -15,7 +15,6 @@ export default class Match extends Component {
   render () {
     let matchTeams = []
     for (let matchTeam of this.props.match.matchTeams.filter(x => x.teamNumber)) {
-      console.log(matchTeam)
       matchTeams.push(
         <div className="cell auto">
           {matchTeam.tableName}

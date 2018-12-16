@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CircularProgressbar from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
-import '../../css/components/times.css'
+import '../../css/components/timer.css'
 import Environment from '../services/env'
 import MhubResource from '../classes/MhubResource'
 

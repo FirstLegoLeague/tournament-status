@@ -6,6 +6,10 @@ export default class RestResource extends Resource {
     super(url, mhubTopic)
   }
 
+  setUrl(url){
+    this.url = url
+  }
+
   reload (data, msg) {
     const promise = super.load()
     return promise

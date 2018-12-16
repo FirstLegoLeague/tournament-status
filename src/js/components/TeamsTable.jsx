@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import '../../css/components/teamstable.css'
 import Environment from '../services/env.js'
 import RestResource from '../classes/RestResource'
-import MhubResource from '../classes/MhubResource'
 import Match from './Match.jsx'
+import Settings from '../services/settings'
 
 export default class TeamsTable extends Component {
 
@@ -14,13 +14,21 @@ export default class TeamsTable extends Component {
 
     this.state = {
       tables: [],
-      upcomingMatches: []
+      upcomingMatches: [],
+      settings: Settings.settings
     }
 
     this.envPromise = Environment.load()
     this.tablesResource = new RestResource(Environment.load().then(env => `${env.moduleTournamentUrl}/table/all`), 'tables:reload')
-    this.upcomingMatchesResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/upcoming`), 'UpcomingMatches:reload')
+    this.upcomingMatchesResource = new RestResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/upcoming/${this.state.settings.nextupMatchesAmount}`), 'UpcomingMatches:reload')
 
+    Settings.on('update', () => {
+      this.setState({settings: Settings.settings})
+      Environment.load().then(env => {
+        this.upcomingMatchesResource.setUrl(`${env.moduleTournamentUrl}/match/upcoming/${Settings.settings.nextupMatchesAmount}`)
+        this.upcomingMatchesResource.load()
+      })
+    })
   }
 
   componentDidMount () {
