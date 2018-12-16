@@ -71,7 +71,8 @@ class Timer extends Component {
                                styles={{
                                  text: {
                                    fontSize: '12px'
-                                 }
+                                 },
+
                                }}
           />
         </div>

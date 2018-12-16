@@ -1,24 +1,9 @@
 import React, { Component } from 'react'
-import Time from 'react-time-format'
 import '../../css/components/teamstable.css'
 import Environment from '../services/env.js'
 import RestResource from '../classes/RestResource'
 import MhubResource from '../classes/MhubResource'
-
-const COLUMN_NAMES = ['Match #', 'Stage', 'Start Time']
-const MATCH_FIELD = [
-  {
-    name: 'matchId',
-    type: 'string'
-  },
-  {
-    name: 'stage',
-    type: 'string'
-  },
-  {
-    name: 'startTime',
-    type: 'date'
-  }]
+import Match from './Match.jsx'
 
 export default class TeamsTable extends Component {
 
@@ -55,54 +40,21 @@ export default class TeamsTable extends Component {
   }
 
   render () {
-    if (!isArrayEmpty(this.state.upcomingMatches)) {
-      const headers = []
-      const rows = []
+    if (!isArrayEmpty(this.state.upcomingMatches) && !isArrayEmpty(this.state.tables)) {
+      let matches = []
 
-      // Creating table headers
-      for (let i = 0; i < COLUMN_NAMES.length; i++) {
-        headers.push(<th>{COLUMN_NAMES[i]}</th>)
-      }
-
-      for (let i = 0; i < this.state.tables.length; i++) {
-        headers.push(<th>{this.state.tables[i].tableName}</th>)
-      }
-
-      // Creating table records
-      for (let j = 0; j < this.state.upcomingMatches.length; j++) {
-        let rowJSX = []
-
-        for (let i = 0; i < MATCH_FIELD.length; i++) {
-          switch (MATCH_FIELD[i].type) {
-            case 'date':
-              rowJSX.push(<td><Time
-                value={this.state.upcomingMatches[j][MATCH_FIELD[i].name]}
-                format="HH:mm:ss"/></td>)
-              break
-            default:
-              rowJSX.push(<td>{this.state.upcomingMatches[j][MATCH_FIELD[i].name]}</td>)
-              break
+      for (let match of this.state.upcomingMatches) {
+        let newMatchTeam = match.matchTeams.map((matchTeam) => {
+          let table = this.state.tables.find(table => table.tableId === matchTeam.tableId)
+          return {
+            teamNumber: matchTeam.teamNumber,
+            tableName: table ? table.tableName : ''
           }
-        }
-
-        for (let i = 0; i < this.state.upcomingMatches[j].matchTeams.length; i++) {
-          rowJSX.push(<td>{this.state.upcomingMatches[j].matchTeams[i].teamNumber}</td>)
-        }
-
-        rows.push(<tr>{rowJSX}</tr>)
+        })
+        match.matchTeams = newMatchTeam
+        matches.push(<div className="cell shrink"><Match match={match}/></div>)
       }
-      return (
-        <table>
-          <thead>
-          <tr>
-            {headers}
-          </tr>
-          </thead>
-          <tbody>
-          {rows}
-          </tbody>
-        </table>
-      )
+      return (<div className='grid-x grid-margin-x'>{matches}</div>)
     }
 
     return (<div>No matches found!</div>)

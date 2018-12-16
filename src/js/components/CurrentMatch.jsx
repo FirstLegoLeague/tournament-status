@@ -32,7 +32,7 @@ export default class CurrentMatch extends Component {
   render () {
     let currentMatchRender = ''
     if (this.state.currentMatch && this.state.currentStage) {
-      currentMatchRender = <h3>{this.state.currentStage}, Match #{this.state.currentMatch.matchId}</h3>
+      currentMatchRender = <h3>{this.state.currentStage} #{this.state.currentMatch.matchId}</h3>
     }
 
     return (

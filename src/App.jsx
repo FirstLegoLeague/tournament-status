@@ -30,35 +30,24 @@ export default class App extends Component {
 
   render () {
     return (
-      <div className="App">
-        <div className="callout">
-
-          <div className="grid-container">
-            <div className="grid-padding-y align-center">
-              <div className="cell medium-8">
-                <div className="grid-y align-center">
-                  <div className="grid-padding-x align-center">
-                    <div className="cell medium-auto">
-                      <div className="cell medium-1">
-                        <h4><Clock format={'HH:mm:ss'} ticking={true}/></h4>
-                      </div>
-                      <div className="cell medium-1">
-                        <CurrentMatch/>
-                      </div>
-                      <div className="cell medium-10">
-                        <Timer/>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+      <div className="wrapper">
+        <div className="grid-y">
+          <div className="cell medium-2">
+            <div className="grid-x">
+              <div className="cell medium-offset-7">
               </div>
-              <div className="cell medium-4">
-                <h3>Next Up</h3>
-                <TeamsTable/>
+              <div className="cell medium-5">
+                <h4><Clock format={'HH:mm:ss'} ticking={true}/></h4>
+                <CurrentMatch/>
               </div>
             </div>
           </div>
-
+          <div className="cell medium-8 grid-x align-center">
+            <Timer/>
+          </div>
+          <div className="cell medium-2 grid-x align-center">
+            <TeamsTable/>
+          </div>
         </div>
       </div>
     )
