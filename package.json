@@ -4,7 +4,10 @@
   "scripts": {
     "build": "webpack --mode production",
     "mhub": "mhub-server -c ./dev/mhub.config.json",
-    "start": "webpack-dev-server --config webpack.config.js --hot"
+    "start": "webpack-dev-server --config webpack.config.js --hot",
+    "prepack": "npm run build",
+    "prepublish": "cd dist",
+    "postpublish": "cd .."
   },
   "dependencies": {
     "@first-lego-league/ms-auth": "^1.2.4",
