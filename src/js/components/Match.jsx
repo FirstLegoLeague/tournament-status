@@ -18,19 +18,20 @@ export default class Match extends Component {
     for (let matchTeam of this.props.match.matchTeams.filter(x => x.teamNumber)) {
       matchTeams.push(
         <div className="cell auto">
-          {matchTeam.tableName}
-          <br/>
-          {matchTeam.teamNumber}
+          <div className="grid-y">
+            <div className="cell">{matchTeam.tableName}</div>
+            <div className="cell">{matchTeam.teamNumber}</div>
+          </div>
         </div>
       )
     }
 
     return (
       <div className="match grid-y">
-        <div className="cell">
+        <div className="cell bold">
           {upperCaseFirstIfLetter(this.props.match.stage)} #{this.props.match.matchId}
         </div>
-        <div className="cell">
+        <div className="cell italic border bottom">
           <Time value={this.props.match.startTime} format="HH:mm:ss"/>
         </div>
         <div className="cell">
