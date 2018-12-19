@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Time from 'react-time-format'
 import '../../css/components/match.css'
+import {upperCaseFirstIfLetter} from '../classes/StringUtil'
 
 export default class Match extends Component {
 
@@ -27,7 +28,7 @@ export default class Match extends Component {
     return (
       <div className="match grid-y">
         <div className="cell">
-          {this.upperCaseFirstIfLetter(this.props.match.stage)} #{this.props.match.matchId}
+          {upperCaseFirstIfLetter(this.props.match.stage)} #{this.props.match.matchId}
         </div>
         <div className="cell">
           <Time value={this.props.match.startTime} format="HH:mm:ss"/>
@@ -42,18 +43,4 @@ export default class Match extends Component {
     )
   }
 
-  upperCaseFirstIfLetter (string) {
-    if (string) {
-      let stringRegex = /^\D/
-      let regex = new RegExp(stringRegex)
-
-      if (regex.test(string)) {
-        let first = string.slice(0, 1)
-        let stelse = string.slice(1, string.length)
-        return first.toUpperCase() + stelse
-      }
-      return string
-    }
-    return ''
-  }
 }

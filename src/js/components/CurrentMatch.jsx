@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import MhubResource from '../classes/MhubResource'
 import Environment from '../services/env'
+import {upperCaseFirstIfLetter} from '../classes/StringUtil'
 
 export default class CurrentMatch extends Component {
 
@@ -32,7 +33,7 @@ export default class CurrentMatch extends Component {
   render () {
     let currentMatchRender = ''
     if (this.state.currentMatch && this.state.currentStage) {
-      currentMatchRender = <h3>{this.state.currentStage} #{this.state.currentMatch.matchId}</h3>
+      currentMatchRender = <h3>{upperCaseFirstIfLetter(this.state.currentStage)} #{this.state.currentMatch.matchId}</h3>
     }
 
     return (
