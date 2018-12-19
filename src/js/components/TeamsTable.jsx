@@ -49,20 +49,21 @@ export default class TeamsTable extends Component {
 
   render () {
     if (!isArrayEmpty(this.state.upcomingMatches) && !isArrayEmpty(this.state.tables)) {
-      let matches = []
+      let matchesRender = []
 
       for (let match of this.state.upcomingMatches) {
         let newMatchTeam = match.matchTeams.map((matchTeam) => {
           let table = this.state.tables.find(table => table.tableId === matchTeam.tableId)
           return {
             teamNumber: matchTeam.teamNumber,
-            tableName: table ? table.tableName : ''
+            tableName: table ? table.tableName : '--',
+            tableId: table.tableId
           }
         })
         match.matchTeams = newMatchTeam
-        matches.push(<div className="cell shrink"><Match match={match}/></div>)
+        matchesRender.push(<div className="cell shrink"><Match match={match}/></div>)
       }
-      return (<div className='grid-x grid-margin-x'>{matches}</div>)
+      return (<div className='grid-x grid-margin-x'>{matchesRender}</div>)
     }
 
     return (<div>No matches found!</div>)

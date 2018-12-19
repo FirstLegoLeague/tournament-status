@@ -19,8 +19,8 @@ export default class Match extends Component {
       matchTeams.push(
         <div className="cell auto">
           <div className="grid-y">
-            <div className="cell">{matchTeam.tableName}</div>
-            <div className="cell">{matchTeam.teamNumber}</div>
+            <div className="cell shrink">{matchTeam.tableName}</div>
+            <div className="cell shrink">{matchTeam.teamNumber}</div>
           </div>
         </div>
       )
@@ -34,7 +34,7 @@ export default class Match extends Component {
         <div className="cell italic border bottom">
           <Time value={this.props.match.startTime} format="HH:mm:ss"/>
         </div>
-        <div className="cell">
+        <div className="cell auto">
           <div className="grid-x grid-padding-x">
             {matchTeams}
           </div>
