@@ -56,9 +56,9 @@ class Timer extends Component {
       let text = this.getTimeText(this.state.millisecondsTillNextMatch)
 
       let timerclass = 'greenTime'
-      if (this.state.millisecondsTillNextMatch <= this.state.timeThreshold && this.state.millisecondsTillNextMatch > -this.state.timeThreshold) {
+      if (this.state.millisecondsTillNextMatch <= this.state.timeThreshold && this.state.millisecondsTillNextMatch > -this.state.yellowThreshold) {
         timerclass = 'yellowTime'
-      } else if (this.state.millisecondsTillNextMatch <= -this.state.timeThreshold) {
+      } else if (this.state.millisecondsTillNextMatch <= 0) {
         timerclass = 'redTime'
       } else if (this.state.millisecondsTillNextMatch > this.state.timeThreshold) {
         timerclass = 'greenTime'
@@ -128,7 +128,7 @@ class Timer extends Component {
       return `${milliseconds < 0 ? '-' : '+'}  ${daysString}${hoursString}${this.padNumber(minutes, minutesPad)}:${this.padNumber(seconds, 2)}`
     }
 
-    return 'Unknown'
+    return '--:--'
   }
 
   sortMatchesByTime (match1, match2) {
