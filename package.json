@@ -1,13 +1,11 @@
 {
   "name": "@first-lego-league/tournament-status",
-  "version": "0.1.0-beta.3",
+  "version": "0.1.0-beta.4",
   "scripts": {
     "build": "webpack --mode production",
     "mhub": "mhub-server -c ./dev/mhub.config.json",
     "start": "webpack-dev-server --config webpack.config.js --hot",
-    "prepack": "npm run build",
-    "prepublish": "cd dist",
-    "postpublish": "cd .."
+    "npm-publish": "npm run build && cd dist && npm publish && cd .."
   },
   "dependencies": {
     "@first-lego-league/ms-auth": "^1.2.4",
