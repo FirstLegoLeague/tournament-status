@@ -4,19 +4,19 @@
   "scripts": {
     "build": "webpack --mode production",
     "mhub": "mhub-server -c ./dev/mhub.config.json",
-    "start": "webpack-dev-server --config webpack.config.js --hot"
+    "start": "webpack-dev-server --config webpack.config.js"
   },
   "dependencies": {
+    "@first-lego-league/user-interface": "1.2.4",
     "@first-lego-league/ms-auth": "^1.2.4",
     "@first-lego-league/ms-correlation": "^0.0.5",
     "@first-lego-league/ms-logger": "^1.3.2",
-    "@first-lego-league/user-interface": "1.2.4",
+    "mhub": "^0.9.1",
     "axios": "^0.18.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "classnames": "^2.2.6",
     "copy-webpack-plugin": "^4.5.2",
     "cors": "^2.8.4",
     "css-loader": "^1.0.0",
@@ -26,19 +26,17 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.9.2",
-    "prop-types": "^15.6.2",
-    "react": "^16.4.2",
-    "react-bootstrap-table-next": "^1.1.3",
-    "react-circular-progressbar": "^1.0.0",
-    "react-dom": "^16.4.2",
-    "react-foundation": "^0.9.6",
-    "react-scripts": "1.1.4",
+    "path": "^0.12.7",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-foundation-components": "^0.14.0",
+    "react-foundation-modal": "^0.1.5",
     "react-textfit": "^1.1.0",
-    "react-time-format": "0.0.5",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.5"
+    "webpack-dev-server": "^3.1.5",
+    "react-circular-progressbar": "^1.0.0"
   }
 }
