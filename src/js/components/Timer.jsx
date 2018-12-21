@@ -65,6 +65,7 @@ class Timer extends Component {
       }
       return (
         <div className="progress-container">
+          <div className="text-center">Time to scheduled start of next match</div>
           <CircularProgressbar className={timerclass}
                                percentage={percentage}
                                text={`${text}`}
@@ -72,7 +73,6 @@ class Timer extends Component {
                                  text: {
                                    fontSize: '12px'
                                  },
-
                                }}
           />
         </div>
