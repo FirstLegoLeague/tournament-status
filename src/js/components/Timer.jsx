@@ -1,160 +1,83 @@
-import React, { Component } from 'react';
-import CircularProgressbar from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import '../../css/components/times.css'
-import Messenger from '../services/messenger';
+import React, { Component } from 'react'
+import CircularProgressbar from 'react-circular-progressbar'
+import 'react-circular-progressbar/dist/styles.css'
+import '../../css/components/timer.css'
+import Environment from '../services/env'
+import MhubResource from '../classes/MhubResource'
+
+const THRESHOLD_IN_MINUTES = 2
 
 class Timer extends Component {
 
+  constructor (props) {
+    super(props)
 
-  constructor(props) {
-    super(props);
-    this.updateTime = this.updateTime.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-    this.counter = 0;
-    this.prevDiff = 0;
-    this.numberOfMatchesSent = 2;
-    this.nextUpData = {};
-    setInterval(this.updateTime, 100);
+    this.state = {
+      upcomingMatches: [],
+      millisecondsTillNextMatch: 0,
+      timeThreshold: THRESHOLD_IN_MINUTES * 60 * 1000
+    }
 
+    this.upcomingMatchesResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/upcoming`), 'UpcomingMatches:reload')
+    this.currentMatchResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/current`), 'CurrentMatch:reload')
+
+    setInterval(this.updateTime.bind(this), 1000)
   }
 
-  getNumOfMatches() {
-    return this.numberOfMatchesSent;
-  }
+  componentDidMount () {
 
-  /*
-  * MHub "data" is of the form
-  * [{
-  *    matchNumber: number,
-  *    matchStartTime: string,
-  *    teams: Array {
-  *       number:number,
-  *       name:string,
-  *       table:number
-  *    }
-  * }]
-  * nextMatchTime has to be of the format "hh:mm"
-  *
-  */
+    this.upcomingMatchesResource.onReload = () => {
+      Promise.resolve(this.upcomingMatchesResource.data).then(data => {
+        this.setState({upcomingMatches: data})
+      })
+    }
 
-  componentDidMount() {
-
-    Messenger.on('tournament:nextmatch', (data, msg) => {
-      console.info(data)
-      this.nextUpData = data.data;
-      this.updateTime()
-    });
-
-    Messenger.on('clock:time', (data, msg) => {
-      this.clockTime = data.data.time
-    })
-
-  }
-
-  /*
-   * Update the display
-  */
-  updateTime() {
-    this.numberOfMatchesSent = this.nextUpData.length;
-    if (this.nextUpData[0]) {
-      let nextMatch = this.nextUpData.sort((match1, match2) => match1.matchNumber - match2.matchNumber)[0]
-      const nextMatchTimeDate = new Date(nextMatch['matchStartTime']);
-      let timeString = '00:00';
-      if (nextMatch['matchStartTime']) {
-        const parts1 = nextMatchTimeDate.toTimeString().split(' ');
-        const timePart = parts1[0].split(':').slice(0, 2);
-        timeString = `${timePart[0]}:${timePart[1]}`;
-      }
-
-      const d = new Date();
-
-
-      let diff = 0;
-      const splitTime = timeString.split(":");
-      if (splitTime.length === 2) {
-
-        let nextHour = Number.parseInt(splitTime[0], 10);
-        const nextMinute = Number.parseInt(splitTime[1], 10);
-        const nextUpDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), nextHour, nextMinute);
-        diff = (nextUpDate - d) / 1000;
-      }
-      if (this.counter === 10) {
-        this.setState({ diffTime: diff, diffCircle: diff });
-        this.prevDiff = diff;
-        this.counter = 0;
-      } else {
-        this.setState({ diffTime: this.prevDiff, diffCircle: diff });
-      }
-      this.counter++;
-      return diff;
-    } else {
-      return 0;
+    this.currentMatchResource.onReload = () => {
+      Promise.resolve(this.currentMatchResource.data).then(data => {
+        this.setState({currentMatch: data})
+      })
     }
 
   }
 
-  render() {
+  updateTime () {
+    const currentTime = new Date()
+    if (this.state.upcomingMatches.length > 0) {
+      let millisecondsTillNextMatch = new Date(this.state.upcomingMatches[0].startTime).getTime() - currentTime.getTime()
+      this.setState({millisecondsTillNextMatch})
+    }
+  }
+
+  render () {
 
     if (this.state) {
-      let percentage = Math.abs(this.state.diffCircle / 300.0 * 100.0);
 
+      let percentage = this.calculatePercent()
+      let text = this.getTimeText(this.state.millisecondsTillNextMatch)
 
-      //console.log(this.state.diffTime % 60);
-      const seconds = (Math.floor(Math.abs(this.state.diffTime % 60)));
-      let secondsString = `${seconds.toFixed(0)}`;
-      let minutes = (Math.floor(Math.abs(this.state.diffTime / 60)));
-      let minuteString = `${minutes.toFixed(0)}`;
-      if (Math.abs(this.state.diffTime) > 3600) {
-        minutes = (Math.floor(Math.abs(this.state.diffTime / 60) % 60));
-        minuteString = `${minutes.toFixed(0)}`;
+      let timerclass = 'greenTime'
+      if (this.state.millisecondsTillNextMatch <= this.state.timeThreshold && this.state.millisecondsTillNextMatch > -this.state.yellowThreshold) {
+        timerclass = 'yellowTime'
+      } else if (this.state.millisecondsTillNextMatch <= 0) {
+        timerclass = 'redTime'
+      } else if (this.state.millisecondsTillNextMatch > this.state.timeThreshold) {
+        timerclass = 'greenTime'
       }
+      return (
+        <div className="progress-container">
+          <CircularProgressbar className={timerclass}
+                               percentage={percentage}
+                               text={`${text}`}
+                               styles={{
+                                 text: {
+                                   fontSize: '12px'
+                                 },
 
-      if (Math.abs(seconds) < 10) {
-        secondsString = `0${seconds}`
-      }
-      if (Math.abs(minutes) < 10) {
-        minuteString = `0${minutes}`
-      }
-      let text = `+${minuteString}:${secondsString}`;
-      if (this.state.diffTime > 3600) {
-        text = `+${Math.floor(Math.abs(this.state.diffTime / 3600))}:${minuteString}:${secondsString}`;
-      }
+                               }}
+          />
+        </div>
+      )
 
-      if (this.state.diffTime < 0) {
-        text = `-${Math.floor(Math.abs(this.state.diffTime / 60))}:${secondsString}`;
-      }
-      if (this.state.diffTime < -3600) {
-        text = `-${Math.floor(Math.abs(this.state.diffTime / 3600))}:${minuteString}:${secondsString}`;
-      }
-      let timerclass = "greenTime";
-      if (Math.floor(Math.abs(this.state.diffTime)) <= 30 && this.state.diffTime > 0) {
-        timerclass = "yellowTime";
-      } else if (this.state.diffTime <= 0) {
-        timerclass = "redTime";
-      } else if (this.state.diffTime > 30) {
-        timerclass = "greenTime";
-      }
-      /*<div style={{ width: '25em' }} id="jello" className="cell">*/      // </div>
-      if (percentage <= 100.0) {
-        return (
-          <div className="progress-container">
-            <CircularProgressbar className={timerclass}
-              percentage={percentage}
-              text={`${text}`}
-            />
-          </div>
-        );
-      } else {
-        return (
-          <div className="progress-container">
-            <CircularProgressbar className={timerclass}
-              percentage={100}
-              text={`${text}`}
-            />
-          </div>
-        );
-      }
     } else {
       return (
         <div>Problems!</div>
@@ -162,6 +85,55 @@ class Timer extends Component {
     }
 
   }
+
+  calculatePercent () {
+    let fullCircleSeconds = 1000 * 60 * 60 * 5 // 5 minutes default
+
+    if (!this.state.currentMatch) {
+      return 100
+    }
+
+    if (this.state.upcomingMatches.length > 0) {
+      if (this.state.millisecondsTillNextMatch >= 0) {
+        fullCircleSeconds = (new Date(this.state.upcomingMatches[0].startTime) - new Date(this.state.currentMatch.startTime))
+      } else {
+        fullCircleSeconds = (new Date(this.state.currentMatch.startTime) - new Date(this.state.upcomingMatches[0].startTime))
+      }
+    }
+
+    return ((this.state.millisecondsTillNextMatch) / fullCircleSeconds) * 100
+  }
+
+  padNumber (number, size) {
+    let s = String(number)
+    while (s.length < (size || 2)) {s = '0' + s}
+    return s
+  }
+
+  getTimeText (value) {
+    if (value) {
+      let milliseconds = value
+      let delta = Math.abs(milliseconds) / 1000
+      let days = Math.floor(delta / 86400)
+      delta -= days * 86400
+      let hours = Math.floor(delta / 3600) % 24
+      delta -= hours * 3600
+      let minutes = Math.floor(delta / 60) % 60
+      delta -= minutes * 60
+      let seconds = Math.floor(delta % 60)
+
+      let daysString = days !== 0 ? `${this.padNumber(days, 2)}:` : ''
+      let hoursString = hours !== 0 ? `${this.padNumber(hours, 2)}:` : ''
+      let minutesPad = hours !== 0 ? 2 : 1
+      return `${milliseconds < 0 ? '-' : '+'}  ${daysString}${hoursString}${this.padNumber(minutes, minutesPad)}:${this.padNumber(seconds, 2)}`
+    }
+
+    return '--:--'
+  }
+
+  sortMatchesByTime (match1, match2) {
+    return new Date(match1.startTime).getTime() - new Date(match2.startTime).getTime()
+  }
 }
 
-export default Timer;
+export default Timer

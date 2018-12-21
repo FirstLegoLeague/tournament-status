@@ -1,0 +1,47 @@
+import React, { Component } from 'react'
+import Time from 'react-time-format'
+import '../../css/components/match.css'
+import {upperCaseFirstIfLetter} from '../classes/StringUtil'
+
+export default class Match extends Component {
+
+  constructor (props, context) {
+    super(props, context)
+  }
+
+  componentDidMount () {
+
+  }
+
+  render () {
+    let matchTeams = []
+    for (let matchTeam of this.props.match.matchTeams.filter(x => x.teamNumber)) {
+      matchTeams.push(
+        <div className="cell auto">
+          <div className="grid-y">
+            <div className="cell shrink">{matchTeam.tableName}</div>
+            <div className="cell shrink">{matchTeam.teamNumber}</div>
+          </div>
+        </div>
+      )
+    }
+
+    return (
+      <div className="match grid-y">
+        <div className="cell bold">
+          {upperCaseFirstIfLetter(this.props.match.stage)} #{this.props.match.matchId}
+        </div>
+        <div className="cell italic border bottom">
+          <Time value={this.props.match.startTime} format="HH:mm:ss"/>
+        </div>
+        <div className="cell auto">
+          <div className="grid-x grid-padding-x">
+            {matchTeams}
+          </div>
+        </div>
+
+      </div>
+    )
+  }
+
+}
