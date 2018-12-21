@@ -1,6 +1,8 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CopyWebPackPlugin = require('copy-webpack-plugin')
 
+const { MockAPIRouter } = require('./dev/mock-api-router')
+
 module.exports = {
   module: {
     rules: [
@@ -43,6 +45,7 @@ module.exports = {
       }
     ]
   },
+  devtool: 'eval-source-map',
   plugins: [
     new HtmlWebPackPlugin({
       template: './src/index.html',
@@ -50,5 +53,12 @@ module.exports = {
       favicon: './node_modules/@first-lego-league/user-interface/current/assets/img/first-favicon.ico'
     }),
     new CopyWebPackPlugin([{ from: 'module.yml', to: 'module.yml' }, { from: 'package.json', to: 'package.json' }])
-  ]
+  ],
+  devServer: {
+    open: true,
+    hot: true,
+    setup: function(app) {
+      app.use(MockAPIRouter);
+    }
+  }
 };

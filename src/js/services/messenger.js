@@ -5,13 +5,13 @@ const MESSAGE_TYPES = {
   LOGIN: 'login',
   PUBLISH: 'publish'
 }
-const NODE = 'default'
+const NODE = 'protected'
 const IDENTITY_TOKEN_KEY = 'client-id'
 const RETRY_TIMEOUT = 1000 // second
 
 class Messenger {
 
-  init() {
+  init () {
     let self = this
 
     if (!this._openingPromsie) {
@@ -19,19 +19,20 @@ class Messenger {
         this.ws = new WebSocket(env.mhubUri)
         this.open = false
         this.headers = {}
-        this.headers[IDENTITY_TOKEN_KEY] = parseInt(Math.floor(0x100000 * (Math.random())), 16)
+        this.headers[IDENTITY_TOKEN_KEY] = parseInt(Math.floor(0x100000*(Math.random())), 16)
         this.listeners = this.listeners || []
-        //'env.PROTECTED_MHUB_PASSWORD'
+
+        let node = NODE;
+
+        if(env.mhubNode){
+          node = env.mhubNode;
+        }
+
         return new Promise((resolve, reject) => {
           self.ws.onopen = function () {
             self.ws.send(JSON.stringify({
-              type: MESSAGE_TYPES.LOGIN,
-              username: 'protected-client',
-              password: 'mEUcRuroVRtb'
-            }))
-            self.ws.send(JSON.stringify({
               type: MESSAGE_TYPES.SUBSCRIBE,
-              node: NODE
+              node: node
             }));
 
             self.open = true
@@ -62,8 +63,8 @@ class Messenger {
             msg.fromMe = (msg.from === self.token)
 
             self.listeners.filter(listener => {
-              return (typeof (listener.topic) === 'string' && topic === listener.topic) ||
-                (listener.topic instanceof RegExp && topic.matches(listener.topic))
+              return (typeof(listener.topic) === 'string' && topic === listener.topic) ||
+                (listener.topic instanceof RegExp && topic.upcomingMatches(listener.topic))
             }).forEach(listener => listener.handler(data, msg))
           }
         })
@@ -73,7 +74,7 @@ class Messenger {
     return this._openingPromsie
   }
 
-  on(topic, handler, ignoreSelfMessages = true) {
+  on (topic, handler, ignoreSelfMessages) {
     let self = this
 
     this.init().then(() => {
@@ -87,10 +88,10 @@ class Messenger {
     })
   }
 
-  send(topic, data = {}) {
+  send (topic, data) {
     let self = this
 
-    return this.init().then(function (ws) {
+    return this.init().then(function(ws) {
       ws.send(JSON.stringify({
         type: MESSAGE_TYPES.PUBLISH,
         node: NODE,

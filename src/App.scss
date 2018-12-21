@@ -1,18 +1,27 @@
 body {
-  background: url('~@first-lego-league/user-interface/current/assets/img/background_tile.jpg');
+  background-color: #262626;
+  height: 100%;
+  width: 100%;
 }
 
-
-#fll-logo {
-  background: url('~@first-lego-league/user-interface/current/assets/img/fll_logo_wide.png');
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
+.wrapper {
+  height: 100%;
+  padding: 1vmin;
 }
 
-#challenge-logo {
-  background: url('~@first-lego-league/user-interface/current/assets/img/challenge_logo.png');
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
+.grid-y {
+  height: 100%;
+}
+
+.fullscreen .show-on-hover {
+  transition: linear 0.2s opacity;
+  opacity: 0;
+}
+
+.fullscreen .show-on-hover:hover {
+  opacity: 1;
+}
+
+.white-text{
+  color: white;
 }
