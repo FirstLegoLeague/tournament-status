@@ -57,7 +57,7 @@ export default class TeamsTable extends Component {
           return {
             teamNumber: matchTeam.teamNumber,
             tableName: table ? table.tableName : '--',
-            tableId: table.tableId
+            tableId: table.tableId ? table.tableId : undefined
           }
         })
         match.matchTeams = newMatchTeam
