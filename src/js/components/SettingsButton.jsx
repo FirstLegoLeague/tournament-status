@@ -5,7 +5,7 @@ import '../../css/components/settings.css'
 
 const SETTINGS_METADATA = {
   nextupMatchesAmount: {
-    display: 'Next Up Matches Amount',
+    display: 'Number of Next Up matches',
     type: 'number'
   }
 }
