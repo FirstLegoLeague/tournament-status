@@ -19,8 +19,8 @@ export default class Match extends Component {
       matchTeams.push(
         <div className="cell auto">
           <div className="grid-y">
-            <div className="cell shrink">{matchTeam.tableName}</div>
-            <div className="cell shrink">{matchTeam.teamNumber}</div>
+            <div className="cell small-7 medium-7 large-7 auto">{matchTeam.tableName}</div>
+            <div className="cell small-5 medium-5 large-5 auto">{matchTeam.teamNumber}</div>
           </div>
         </div>
       )

@@ -36,7 +36,7 @@ export default class App extends Component {
     return (
       <div className={`wrapper ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
         <div className="grid-y">
-          <div className="cell small-1 medium-1 large-1">
+          <div className="cell small-2 medium-2 large-2">
             <div className="grid-x">
               <div className="cell medium-6 white-text left">
                 <div className="grid-y">
@@ -60,7 +60,7 @@ export default class App extends Component {
               </div>
             </div>
           </div>
-          <div className="cell small-9 medium-9 large-9 grid-x align-center">
+          <div className="cell small-8 medium-8 large-8 grid-x align-center">
             <Timer/>
           </div>
           <div className="cell small-2 medium-2 large-2 grid-x align-center">

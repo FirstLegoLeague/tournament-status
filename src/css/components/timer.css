@@ -4,6 +4,11 @@
     --aheadTime: green;
 }
 
+.CircularProgressbar{
+    height: 100%;
+    width: 100%;
+}
+
 .redTime > .CircularProgressbar-path {
     stroke: var(--afterTime);
 }
