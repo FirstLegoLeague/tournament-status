@@ -15,7 +15,7 @@ class Timer extends Component {
     this.state = {
       upcomingMatches: [],
       millisecondsTillNextMatch: 0,
-      timeThreshold: THRESHOLD_IN_MINUTES * 60 * 1000
+      colorThreshold: THRESHOLD_IN_MINUTES * 60 * 1000
     }
 
     this.upcomingMatchesResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/upcoming`), 'UpcomingMatches:reload')
@@ -56,11 +56,11 @@ class Timer extends Component {
       let text = this.getTimeText(this.state.millisecondsTillNextMatch)
 
       let timerclass = 'greenTime'
-      if (this.state.millisecondsTillNextMatch <= this.state.timeThreshold && this.state.millisecondsTillNextMatch > -this.state.yellowThreshold) {
+      if (this.state.millisecondsTillNextMatch >= 0 && this.state.millisecondsTillNextMatch <= this.state.colorThreshold) {
         timerclass = 'yellowTime'
-      } else if (this.state.millisecondsTillNextMatch <= 0) {
+      } else if (this.state.millisecondsTillNextMatch < 0) {
         timerclass = 'redTime'
-      } else if (this.state.millisecondsTillNextMatch > this.state.timeThreshold) {
+      } else if (this.state.millisecondsTillNextMatch > this.state.colorThreshold) {
         timerclass = 'greenTime'
       }
 
