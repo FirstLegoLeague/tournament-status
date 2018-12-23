@@ -63,18 +63,28 @@ class Timer extends Component {
       } else if (this.state.millisecondsTillNextMatch > this.state.timeThreshold) {
         timerclass = 'greenTime'
       }
+
+      let textSize = 1;
+      console.log(text.length)
+      if(text.length <= 8){
+        textSize = 2.5
+      }
+      if(text.length > 8 && text.length <= 1){
+        textSize = 1.5
+      }
+
       return (
         <div className="progress-container">
-          <div className="text-center">Time to scheduled start of next match</div>
           <CircularProgressbar className={timerclass}
                                percentage={percentage}
                                text={`${text}`}
                                styles={{
                                  text: {
-                                   fontSize: '12px'
+                                   fontSize: `${textSize}ch`
                                  },
                                }}
           />
+          <h3 className="text-center">Time to scheduled start of next match</h3>
         </div>
       )
 
