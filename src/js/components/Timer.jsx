@@ -64,28 +64,39 @@ class Timer extends Component {
         timerclass = 'greenTime'
       }
 
-      let textSize = 1;
-      console.log(text.length)
-      if(text.length <= 8){
+      let textSize = 1
+      if (text.length <= 8) {
         textSize = 2.5
       }
-      if(text.length > 8 && text.length <= 1){
+      if (text.length > 8 && text.length <= 10) {
+        textSize = 2
+      }
+      if (text.length > 10) {
         textSize = 1.5
       }
 
       return (
-        <div className="progress-container">
-          <CircularProgressbar className={timerclass}
-                               percentage={percentage}
-                               text={`${text}`}
-                               styles={{
-                                 text: {
-                                   fontSize: `${textSize}ch`
-                                 },
-                               }}
-          />
-          <h3 className="text-center">Time to scheduled start of next match</h3>
-        </div>
+          <div className="grid-y">
+            <div className="cell small-11 medium-11 large-11">
+              <CircularProgressbar className={timerclass}
+                                   backgrond
+                                   percentage={percentage}
+                                   text={`${text}`}
+                                   styles={{
+                                     text: {
+                                       fontSize: `${textSize}ch`
+                                     },
+                                     path: {
+                                       width: '100%',
+                                       height: '100%'
+                                     }
+                                   }}
+              />
+            </div>
+            <div className="cell small-1 medium-1 large-1">
+              <h3 className="text-center">Time to scheduled start of next match</h3>
+            </div>
+          </div>
       )
 
     } else {

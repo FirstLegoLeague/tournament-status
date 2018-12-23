@@ -36,10 +36,6 @@ export default class CurrentMatch extends Component {
       currentMatchRender = <h3>{upperCaseFirstIfLetter(this.state.currentStage)} #{this.state.currentMatch.matchId}</h3>
     }
 
-    return (
-      <div>
-        {currentMatchRender}
-      </div>
-    )
+    return (<span>{currentMatchRender}</span>)
   }
 }

@@ -36,7 +36,7 @@ export default class App extends Component {
     return (
       <div className={`wrapper ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
         <div className="grid-y">
-          <div className="cell medium-2">
+          <div className="cell small-1 medium-1 large-1">
             <div className="grid-x">
               <div className="cell medium-6 white-text left">
                 <div className="grid-y">
@@ -60,10 +60,10 @@ export default class App extends Component {
               </div>
             </div>
           </div>
-          <div className="cell medium-8 grid-x align-center">
+          <div className="cell small-9 medium-9 large-9 grid-x align-center">
             <Timer/>
           </div>
-          <div className="cell medium-2 grid-x align-center">
+          <div className="cell small-2 medium-2 large-2 grid-x align-center">
             <TeamsTable/>
           </div>
         </div>
