@@ -45,6 +45,8 @@ class Timer extends Component {
     if (this.state.upcomingMatches.length > 0) {
       let millisecondsTillNextMatch = new Date(this.state.upcomingMatches[0].startTime).getTime() - currentTime.getTime()
       this.setState({millisecondsTillNextMatch})
+    }else {
+      this.setState({millisecondsTillNextMatch: undefined})
     }
   }
 
