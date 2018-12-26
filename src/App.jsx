@@ -38,9 +38,9 @@ export default class App extends Component {
         <div className="grid-y">
           <div className="cell small-10 medium-10 large-10">
             <div className="grid-x align-center full-height">
-              <div className="cell small-2 medium-2 large-2">
-                    <h4><Clock format={'HH:mm:ss'} ticking={true}/></h4>
-                    <CurrentMatch/>
+              <div className="cell small-2 medium-2 large-2 white-text">
+                <h4><Clock format={'HH:mm:ss'} ticking={true}/></h4>
+                <CurrentMatch/>
               </div>
               <div className="cell small-8 medium-8 large-8">
                 <Timer/>

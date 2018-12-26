@@ -64,15 +64,15 @@ class Timer extends Component {
         timerclass = 'greenTime'
       }
 
-      let textSize = 1
+      let textSize = 1.5
       if (text.length <= 8) {
-        textSize = 2.5
+        textSize = 3.5
       }
       if (text.length > 8 && text.length <= 10) {
-        textSize = 2
+        textSize = 3
       }
       if (text.length > 10) {
-        textSize = 1.5
+        textSize = 2.5
       }
 
       return (
@@ -82,13 +82,10 @@ class Timer extends Component {
                                    backgrond
                                    percentage={percentage}
                                    text={`${text}`}
+                                   strokeWidth={5}
                                    styles={{
                                      text: {
                                        fontSize: `${textSize}ch`
-                                     },
-                                     path: {
-                                       width: '100%',
-                                       height: '100%'
                                      }
                                    }}
               />
