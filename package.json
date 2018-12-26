@@ -1,6 +1,6 @@
 {
   "name": "@first-lego-league/tournament-status",
-  "version": "0.1.0-beta.6",
+  "version": "0.1.0-beta.7",
   "scripts": {
     "build": "webpack --mode production",
     "mhub": "mhub-server -c ./dev/mhub.config.json",
