@@ -42,7 +42,7 @@ class SettingsButton extends Component {
     let max = setting.metadata.max ? setting.metadata.max : 999
     return (
       <div className="setting grid-x">
-        <div>{setting.metadata.title}</div>
+        <div>{setting.metadata.display}</div>
         <input type="number" id={setting.key} name={setting.key} value={setting.value}
                onChange={(event) => Settings.set(setting.key, event.target.value)}
                min={min} max={max}/>
@@ -56,7 +56,7 @@ class SettingsButton extends Component {
                onClick={() => Settings.set(setting.key, !setting.value)}/>
         <label className="switch-paddle" for={setting.key}></label>
       </div>
-      <div>{setting.metadata.title}</div>
+      <div>{setting.metadata.display}</div>
     </div>
   }
 
