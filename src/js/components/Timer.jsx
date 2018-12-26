@@ -94,7 +94,7 @@ class Timer extends Component {
               />
             </div>
             <div className="cell small-1 medium-1 large-1">
-              <h3 className="text-center">Time to scheduled start of next match</h3>
+              <h3 className="text-center white-text">Time to scheduled start of next match</h3>
             </div>
           </div>
       )
