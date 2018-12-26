@@ -61,9 +61,9 @@ export default class TeamsTable extends Component {
           }
         })
         match.matchTeams = newMatchTeam
-        matchesRender.push(<div className="cell shrink"><Match match={match}/></div>)
+        matchesRender.push(<div className="cell auto"><Match match={match}/></div>)
       }
-      return (<div className='grid-x grid-margin-x'>{matchesRender}</div>)
+      return (<div className='grid-x grid-margin-x matches-grid'>{matchesRender}</div>)
     }
 
     if(isArrayEmpty(this.state.upcomingMatches) && isArrayEmpty(this.state.tables) && this.state.settings.nextupMatchesAmount !== 0)
