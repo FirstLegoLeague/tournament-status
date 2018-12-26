@@ -66,7 +66,13 @@ export default class TeamsTable extends Component {
       return (<div className='grid-x grid-margin-x'>{matchesRender}</div>)
     }
 
-    return (<div>No matches found!</div>)
+    if(isArrayEmpty(this.state.upcomingMatches) && isArrayEmpty(this.state.tables) && this.state.settings.nextupMatchesAmount !== 0)
+    {
+      return (<div>No matches found!</div>)
+    }
+
+    return (<div></div>)
+
   }
 }
 

@@ -68,7 +68,6 @@ class SettingsButton extends Component {
         value: this.state.settings[key]
       }
     })
-    console.log(settings)
     return [
       <div className="settings show-on-hover button"
            onClick={() => this.setState({modalIsOpen: !this.state.modalIsOpen})}>
