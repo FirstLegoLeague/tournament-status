@@ -107,17 +107,15 @@ class Timer extends Component {
   }
 
   calculatePercent () {
-    let fullCircleSeconds = 1000 * 60 * 60 * 5 // 5 minutes default
+    let fullCircleSeconds = 1000 * 60  * 5 // 5 minutes default
 
     if (!this.state.currentMatch) {
       return 100
     }
 
     if (this.state.upcomingMatches.length > 0) {
-      if (this.state.millisecondsTillNextMatch >= 0) {
-        fullCircleSeconds = (new Date(this.state.upcomingMatches[0].startTime) - new Date(this.state.currentMatch.startTime))
-      } else {
-        fullCircleSeconds = (new Date(this.state.currentMatch.startTime) - new Date(this.state.upcomingMatches[0].startTime))
+      if (this.state.millisecondsTillNextMatch < 0) {
+        fullCircleSeconds = -fullCircleSeconds
       }
     }
 
