@@ -1,10 +1,66 @@
 {
 	"env": {
       "mhubUri": "ws://localhost:13900",
-      "moduleTournamentUrl": "http://localhost:3001",
+      "moduleTournamentUrl": "http://localhost:8080",
       "mhubNode": "default"
     },
 	"tables":[
-		"Table 1","Table 2"
-	]
+		{ "tableId": 1, "tableName": "Table 1" },
+		{ "tableId": 2, "tableName": "Table 2" }
+	],
+	"matches": [{
+		"matchId": 1,
+		"startTime": "2019-01-28T15:30:00.000Z",
+		"endTime": "2019-01-28T15:32:30.000Z",
+		"stage": "qualification",
+		"matchTeams": [
+			{ "teamNumber": 2212, "tableId": 1 },
+			{ "teamNumber": 123, "tableId": 2 }
+		]
+	},{
+		"matchId": 2,
+		"startTime": "2019-01-28T15:35:00.000Z",
+		"endTime": "2019-01-28T15:37:30.000Z",
+		"stage": "qualification",
+		"matchTeams": [
+			{ "teamNumber": 545, "tableId": 1 },
+			{ "teamNumber": 315, "tableId": 2 }
+		]
+	},{
+		"matchId": 3,
+		"startTime": "2019-01-28T15:40:00.000Z",
+		"endTime": "2019-01-28T15:42:30.000Z",
+		"stage": "qualification",
+		"matchTeams": [
+			{ "teamNumber": 86, "tableId": 1 },
+			{ "teamNumber": 423, "tableId": 2 }
+		]
+	},{
+		"matchId": 4,
+		"startTime": "2019-01-28T15:45:00.000Z",
+		"endTime": "2019-01-28T15:47:30.000Z",
+		"stage": "qualification",
+		"matchTeams": [
+			{ "teamNumber": 6676, "tableId": 1 },
+			{ "teamNumber": 542, "tableId": 2 }
+		]
+	},{
+		"matchId": 5,
+		"startTime": "2019-01-28T15:50:00.000Z",
+		"endTime": "2019-01-28T15:52:30.000Z",
+		"stage": "qualification",
+		"matchTeams": [
+			{ "teamNumber": 968, "tableId": 1 },
+			{ "teamNumber": 809, "tableId": 2 }
+		]
+	},{
+		"matchId": 6,
+		"startTime": "2019-01-28T15:55:00.000Z",
+		"endTime": "2019-01-28T15:57:30.000Z",
+		"stage": "qualification",
+		"matchTeams": [
+			{ "teamNumber": 5022, "tableId": 1 },
+			{ "teamNumber": 152, "tableId": 2 }
+		]
+	}]
 }

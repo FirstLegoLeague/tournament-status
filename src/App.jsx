@@ -36,7 +36,7 @@ export default class App extends Component {
     return (
       <div className={`wrapper ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
         <div className="grid-y">
-          <div className="cell small-10 medium-10 large-10">
+          <div className="cell auto">
             <div className="grid-x align-center full-height">
               <div className="cell small-2 medium-2 large-2 white-text">
                 <h4><Clock format={'HH:mm:ss'} ticking={true}/></h4>
@@ -50,7 +50,7 @@ export default class App extends Component {
               </div>
             </div>
           </div>
-          <div className="cell small-2 medium-2 large-2 grid-x align-center">
+          <div className="cell grid-x align-center">
             <TeamsTable/>
           </div>
         </div>

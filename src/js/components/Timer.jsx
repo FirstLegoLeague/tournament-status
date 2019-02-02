@@ -66,17 +66,6 @@ class Timer extends Component {
         timerclass = 'greenTime'
       }
 
-      let textSize = 1.5
-      if (text.length <= 8) {
-        textSize = 3.5
-      }
-      if (text.length > 8 && text.length <= 10) {
-        textSize = 3
-      }
-      if (text.length > 10) {
-        textSize = 2.5
-      }
-
       return (
           <div className="grid-y">
             <div className="cell small-11 medium-11 large-11">
@@ -86,9 +75,9 @@ class Timer extends Component {
                                    text={`${text}`}
                                    strokeWidth={5}
                                    styles={{
-                                     text: {
-                                       fontSize: `${textSize}ch`
-                                     }
+                                    text: {
+                                      fontSize: '0.9rem'
+                                    }
                                    }}
               />
             </div>
@@ -143,7 +132,7 @@ class Timer extends Component {
       let daysString = days !== 0 ? `${this.padNumber(days, 2)}:` : ''
       let hoursString = hours !== 0 ? `${this.padNumber(hours, 2)}:` : ''
       let minutesPad = hours !== 0 ? 2 : 1
-      return `${milliseconds < 0 ? '-' : '+'}  ${daysString}${hoursString}${this.padNumber(minutes, minutesPad)}:${this.padNumber(seconds, 2)}`
+      return `${milliseconds < 0 ? '-' : '+'}${daysString}${hoursString}${this.padNumber(minutes, minutesPad)}:${this.padNumber(seconds, 2)}`
     }
 
     return '--:--'

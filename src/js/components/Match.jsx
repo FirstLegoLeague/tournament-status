@@ -34,7 +34,7 @@ export default class Match extends Component {
         <div className="cell italic border bottom">
           <Time value={this.props.match.startTime} format="HH:mm:ss"/>
         </div>
-        <div className="cell auto">
+        <div className="cell">
           <div className="grid-x grid-padding-x">
             {matchTeams}
           </div>
