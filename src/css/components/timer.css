@@ -37,6 +37,6 @@
     stroke: white;
 }
 
-.timer-grid {
-    flex-wrap: wrap;    
+.timer-container {
+    height: calc(100% - 3rem);
 }

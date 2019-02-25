@@ -68,8 +68,8 @@ class Timer extends Component {
       }
 
       return (
-        <div className="timer-grid grid-y">
-          <div className="flex-child-grow">
+        <div className="full-height">
+          <div className="timer-container">
             <CircularProgressbar className={timerclass}
                                  percentage={percentage}
                                  text={`${text}`}
@@ -79,7 +79,7 @@ class Timer extends Component {
                                  }}
             />
           </div>
-          <Textfit className="flex-child-shrink text-center" mode="single" max="25" forceSingleModeWidth="false">
+          <Textfit className="text-center" mode="single" max="25" forceSingleModeWidth="false">
             Time to scheduled start of next match
           </Textfit>
         </div>
