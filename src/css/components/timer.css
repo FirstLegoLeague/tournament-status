@@ -36,3 +36,7 @@
 .CircularProgressbar-trail {
     stroke: white;
 }
+
+.timer-container {
+    height: calc(100% - 3rem);
+}

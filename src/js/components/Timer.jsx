@@ -4,6 +4,7 @@ import 'react-circular-progressbar/dist/styles.css'
 import '../../css/components/timer.css'
 import Environment from '../services/env'
 import MhubResource from '../classes/MhubResource'
+import { Textfit } from 'react-textfit'
 
 const THRESHOLD_IN_MINUTES = 2
 
@@ -67,25 +68,22 @@ class Timer extends Component {
       }
 
       return (
-          <div className="grid-y">
-            <div className="cell small-11 medium-11 large-11">
-              <CircularProgressbar className={timerclass}
-                                   backgrond
-                                   percentage={percentage}
-                                   text={`${text}`}
-                                   strokeWidth={5}
-                                   styles={{
-                                    text: {
-                                      fontSize: '0.9rem'
-                                    }
-                                   }}
-              />
-            </div>
-            <div className="cell small-1 medium-1 large-1">
-              <h3 className="text-center white-text">Time to scheduled start of next match</h3>
-            </div>
+        <div className="full-height">
+          <div className="timer-container">
+            <CircularProgressbar className={timerclass}
+                                 percentage={percentage}
+                                 text={`${text}`}
+                                 strokeWidth={5}
+                                 styles={{
+                                  text: { fontSize: '0.9rem' }
+                                 }}
+            />
           </div>
-      )
+          <Textfit className="text-center" mode="single" max="25" forceSingleModeWidth="false">
+            Time to scheduled start of next match
+          </Textfit>
+        </div>
+    )
 
     } else {
       return (

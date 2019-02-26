@@ -42,7 +42,7 @@ export default class App extends Component {
                 <h4><Clock format={'HH:mm:ss'} ticking={true}/></h4>
                 <CurrentMatch/>
               </div>
-              <div className="cell small-8 medium-8 large-8">
+              <div className="cell small-8 medium-8 large-8 full-height">
                 <Timer/>
               </div>
               <div className="cell small-2 medium-2 large-2 align-right">
