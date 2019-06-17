@@ -16,7 +16,6 @@ import SettingsButton from './js/components/SettingsButton.jsx'
 import isFullscreen from './js/services/fullscreen'
 
 export default class App extends Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -26,35 +25,38 @@ export default class App extends Component {
   }
 
   componentDidMount () {
-    let tablesUrlPromise = Environment.load().then(env => `${env.moduleTournamentUrl}/table/all`)
-    tablesUrlPromise.then(url => this.url = url).then(() => axios.get(this.url)).then(response => {
-      this.setState({tables: response.data})
-    })
+    return Environment.load()
+      .then(env => `${env.moduleTournamentUrl}/table/all`)
+      .then(url => { this.url = url })
+      .then(() => axios.get(this.url))
+      .then(response => {
+        this.setState({ tables: response.data })
+      })
   }
 
   render () {
     return (
       <div className={`wrapper ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
-        <div className="grid-y">
-          <div className="cell auto">
-            <div className="grid-x align-center full-height">
-              <div className="cell small-2 medium-2 large-2 white-text">
-                <h4><Clock format={'HH:mm:ss'} ticking={true}/></h4>
-                <CurrentMatch/>
+        <div className='grid-y'>
+          <div className='cell auto'>
+            <div className='grid-x align-center full-height'>
+              <div className='cell small-2 medium-2 large-2 white-text'>
+                <h4><Clock format={'HH:mm:ss'} ticking /></h4>
+                <CurrentMatch />
               </div>
-              <div className="cell small-8 medium-8 large-8 full-height">
-                <Timer/>
+              <div className='cell small-8 medium-8 large-8 full-height'>
+                <Timer />
               </div>
-              <div className="cell small-2 medium-2 large-2 align-right">
-                <SettingsButton/>
+              <div className='cell small-2 medium-2 large-2 align-right'>
+                <SettingsButton />
               </div>
             </div>
           </div>
-          <div className="cell grid-x align-center">
-            <TeamsTable/>
+          <div className='cell grid-x align-center'>
+            <TeamsTable />
           </div>
         </div>
-        <ReactResizeDetector handleWidth handleHeight onResize={() => this.setState({isFullscreen: isFullscreen()})}/>
+        <ReactResizeDetector handleWidth handleHeight onResize={() => this.setState({ isFullscreen: isFullscreen() })} />
       </div>
     )
   }
