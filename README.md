@@ -1,3 +1,11 @@
+[![npm](https://img.shields.io/npm/v/@first-lego-league/tournament-status.svg)](https://www.npmjs.com/package/@first-lego-league/tournament-status)
+[![David Dependency Status](https://david-dm.org/FirstLegoLeague/tournament-status.svg)](https://david-dm.org/FirstLegoLeague/tournament-status)
+[![David Dev Dependency Status](https://david-dm.org/FirstLegoLeague/tournament-status/dev-status.svg)](https://david-dm.org/FirstLegoLeague/tournament-status#info=devDependencies)
+[![David Peer Dependencies Status](https://david-dm.org/FirstLegoLeague/tournament-status/peer-status.svg)](https://david-dm.org/FirstLegoLeague/tournament-status?type=peer)
+![Windows Build](https://img.shields.io/static/v1.svg?label=build&message=missing&color=red&logo=windows&logoColor=9cf)
+[![GitHub](https://img.shields.io/github/license/FirstLegoLeague/tournament-status.svg)](https://github.com/FirstLegoLeague/tournament-status/blob/master/LICENSE)
+
+
 # Tournament Status
 
 ### Rational
