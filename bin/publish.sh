@@ -1,1 +1,1 @@
-yarn version && yarn build && cd dist && npm publish --access=public
+yarn version && yarn build && npm publish --access=public

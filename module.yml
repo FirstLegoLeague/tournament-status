@@ -2,4 +2,5 @@ api: "1.0"
 name: "tournament-status"
 display: "Status"
 type: web
+root: dist
 config:
