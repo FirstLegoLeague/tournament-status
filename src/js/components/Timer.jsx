@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import CircularProgressbar from 'react-circular-progressbar'
+import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 import '../../css/components/timer.css'
 import Environment from '../services/env'
@@ -71,7 +71,7 @@ class Timer extends Component {
         <div className="full-height">
           <div className="timer-container">
             <CircularProgressbar className={timerclass}
-                                 percentage={percentage}
+                                 value={percentage}
                                  text={`${text}`}
                                  strokeWidth={5}
                                  styles={{

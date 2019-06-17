@@ -4665,10 +4665,10 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-circular-progressbar@^1.0.0:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/react-circular-progressbar/-/react-circular-progressbar-1.2.1.tgz#76843292e310683c5981480069ed6b4bbf1d96f9"
-  integrity sha512-vfxCdyveCMbpKrfs+vdLqS2a4hv/h5DL1katSVVip9LVDRNtQtrNvxiMVZDPrkZPDQREBubyFZZ7basNhXWK+A==
+react-circular-progressbar@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-circular-progressbar/-/react-circular-progressbar-2.0.1.tgz#643328b410e8bb0c378211d40734aafb964c6066"
+  integrity sha512-OMgN7VMH3Tgze/wVlIOrktKKgIneKRlY73OMQt1etl14+dZqJD0zNIKrcnmg+f6GIskjY/lPxLPGZ8zqpBHOPQ==
 
 react-dom@^16.4.2:
   version "16.8.6"
