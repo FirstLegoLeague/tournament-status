@@ -30,7 +30,6 @@
     "react-foundation-modal": "^0.1.5",
     "react-live-clock": "^3.0.0",
     "react-resize-detector": "^3.4.0",
-    "react-scripts": "1.1.4",
     "react-textfit": "^1.1.0",
     "react-time-format": "0.0.5",
     "rimraf": "^2.6.3",
