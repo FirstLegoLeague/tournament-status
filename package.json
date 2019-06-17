@@ -2,14 +2,19 @@
   "name": "@first-lego-league/tournament-status",
   "version": "1.0.1",
   "scripts": {
-    "build": "webpack --mode production",
-    "mhub": "mhub-server -c ./dev/mhub.config.json",
-    "prepack": "$_ run clean && $_ run build",
     "clean": "rimraf ./dist",
-    "start": "webpack-dev-server --config webpack.config.js --hot",
-    "lint": "eslint src/**/*.js src/**/*.jsx dev/**/*.js"
+    "build": "webpack --mode production",
+    "lint": "eslint src/**/*.js src/**/*.jsx dev/**/*.js",
+    "prepack": "$npm_execpath run clean && $npm_execpath run build",
+    "start": "concurrently -k npm:start:*",
+    "start:mhub": "mhub-server -c ./dev/mhub.config.json",
+    "start:webpack": "webpack-dev-server --config webpack.config.js --hot"
   },
   "license": "GPL-3.0",
+  "files": [
+    "dist/**",
+    "module.yml"
+  ],
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -21,6 +26,7 @@
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
     "bluebird": "^3.5.5",
+    "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "css-loader": "^3.0.0",
     "eslint": "^5.16.0",
@@ -36,6 +42,7 @@
     "file-loader": "^4.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "mhub": "^1.0.0",
     "node-sass": "^4.9.2",
     "react": "^16.4.2",
     "react-circular-progressbar": "^2.0.1",
