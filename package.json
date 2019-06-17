@@ -4,6 +4,8 @@
   "scripts": {
     "build": "webpack --mode production",
     "mhub": "mhub-server -c ./dev/mhub.config.json",
+    "prepack": "$_ run clean && $_ run build",
+    "clean": "rimraf ./dist",
     "start": "webpack-dev-server --config webpack.config.js --hot"
   },
   "devDependencies": {
@@ -31,6 +33,7 @@
     "react-scripts": "1.1.4",
     "react-textfit": "^1.1.0",
     "react-time-format": "0.0.5",
+    "rimraf": "^2.6.3",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
     "webpack": "^4.15.1",
