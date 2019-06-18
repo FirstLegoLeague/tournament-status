@@ -34,7 +34,7 @@ This module is a `web` module (see the [Module Standard](https://github.com/Firs
 * Run `yarn start` to run the `webpack-dev-server`
 
 ### To Publish to NPM
-You must publish the subdirectory `dist` to NPM instead of the whole module, so use the designed script `./bin/publish.sh`. Run it from the shell/git-bash/msys2/any other Linux CLI
+To publish the package run command `yarn publish`.
 
 ### A few things to notice while developing:
 * Use `yarn` not `npm`
