@@ -5,14 +5,15 @@
     "clean": "rimraf ./dist",
     "build": "webpack --mode production",
     "lint": "eslint src/**/*.js src/**/*.jsx dev/**/*.js",
-    "prepack": "$npm_execpath run clean && $npm_execpath run build",
+    "prepack": "yarpm run clean && yarpm run build",
     "start": "concurrently -k npm:start:*",
     "start:mhub": "mhub-server -c ./dev/mhub.config.json",
     "start:webpack": "webpack-dev-server --config webpack.config.js --hot"
   },
   "license": "GPL-3.0",
   "files": [
-    "dist/**",
+    "dist",
+    "yarn.lock",
     "module.yml"
   ],
   "devDependencies": {
@@ -59,6 +60,7 @@
     "style-loader": "^0.23.1",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.5"
+    "webpack-dev-server": "^3.1.5",
+    "yarpm": "^0.2.1"
   }
 }
