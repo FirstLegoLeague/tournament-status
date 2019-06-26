@@ -1,8 +1,9 @@
-const axios = require('axios')
+import axios from 'axios'
+import Promise from 'bluebird'
+
 import Messenger from '../services/messenger.js'
 
 export default class Resource {
-
   urlPromise
   url
   mhubTopic
@@ -10,9 +11,9 @@ export default class Resource {
   onReload
 
   constructor (urlPromise, mhubTopic) {
-    this.urlPromise = urlPromise.then(url => this.url = url)
+    this.urlPromise = urlPromise.then(url => { this.url = url })
     this.mhubTopic = mhubTopic
-    Messenger.init();
+    Messenger.init()
     Messenger.on(this.mhubTopic, this.reload.bind(this))
     this.load()
   }
@@ -41,7 +42,7 @@ export default class Resource {
     return this.load()
   }
 
-  set data(value){
-    this._data =  value
+  set data (value) {
+    this._data = value
   }
 }

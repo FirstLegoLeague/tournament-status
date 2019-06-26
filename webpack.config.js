@@ -1,5 +1,4 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin')
-const CopyWebPackPlugin = require('copy-webpack-plugin')
 
 const { MockAPIRouter } = require('./dev/mock-api-router')
 
@@ -12,7 +11,8 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env', 'react']
+            presets: ['@babel/env', '@babel/react'],
+            plugins: ['@babel/proposal-class-properties']
           }
         }
       },
@@ -51,8 +51,7 @@ module.exports = {
       template: './src/index.html',
       filename: './index.html',
       favicon: './node_modules/@first-lego-league/user-interface/current/assets/img/first-favicon.ico'
-    }),
-    new CopyWebPackPlugin([{ from: 'module.yml', to: 'module.yml' }, { from: 'package.json', to: 'package.json' }])
+    })
   ],
   devServer: {
     open: true,

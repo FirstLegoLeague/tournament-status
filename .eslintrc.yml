@@ -1,0 +1,13 @@
+extends:
+  - "@first-lego-league"
+  - standard-jsx
+
+parser: babel-eslint
+
+parserOptions:
+  env:
+    browser: true
+
+globals:
+  localStorage: true
+  WebSocket: true

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
+
 import MhubResource from '../classes/MhubResource'
 import Environment from '../services/env'
-import {upperCaseFirstIfLetter} from '../classes/StringUtil'
+import { upperCaseFirstIfLetter } from '../classes/StringUtil'
 
 export default class CurrentMatch extends Component {
-
   constructor (props, context) {
     super(props, context)
     this.state = {}
@@ -13,21 +13,18 @@ export default class CurrentMatch extends Component {
     this.currentStageResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/settings/tournamentStage`), 'tournamentStage:updated')
 
     this.currentMatchResource.onReload = () => {
-      Promise.resolve(this.currentMatchResource.data).then(data => {
-        this.setState({currentMatch: data})
-      })
+      this.setState({ currentMatch: this.currentMatchResource.data })
     }
 
-    this.currentStageResource.onReload = ()=>{
-      Promise.resolve(this.currentStageResource.data).then(data => {
-        let stage = data;
-        if(data.value){
-          stage = data.value
-        }
-        this.setState({currentStage: stage})
-      })
-    }
+    this.currentStageResource.onReload = () => {
+      const data = this.currentStageResource.data
 
+      if (data.value) {
+        this.setState({ currentStage: data.value })
+      } else {
+        this.setState({ currentStage: data })
+      }
+    }
   }
 
   render () {

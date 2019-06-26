@@ -1,11 +1,10 @@
 import axios from 'axios'
 
-let ENV_URL = '/environment.json'
+const ENV_URL = '/environment.json'
 
 class Environment {
-
   load () {
-    if(!this._loadingPromise) {
+    if (!this._loadingPromise) {
       this._loadingPromise = axios.get(ENV_URL).then(response => {
         Object.assign(this, response.data)
         return this
@@ -14,7 +13,6 @@ class Environment {
 
     return this._loadingPromise
   }
-
 }
 
 export default new Environment()

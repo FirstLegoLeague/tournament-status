@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import CircularProgressbar from 'react-circular-progressbar'
+import { CircularProgressbar } from 'react-circular-progressbar'
+
 import 'react-circular-progressbar/dist/styles.css'
 import '../../css/components/timer.css'
+import { Textfit } from 'react-textfit'
+
 import Environment from '../services/env'
 import MhubResource from '../classes/MhubResource'
-import { Textfit } from 'react-textfit'
 
 const THRESHOLD_IN_MINUTES = 2
 
 class Timer extends Component {
-
   constructor (props) {
     super(props)
 
@@ -26,37 +27,29 @@ class Timer extends Component {
   }
 
   componentDidMount () {
-
     this.upcomingMatchesResource.onReload = () => {
-      Promise.resolve(this.upcomingMatchesResource.data).then(data => {
-        this.setState({upcomingMatches: data})
-      })
+      this.setState({ upcomingMatches: this.upcomingMatchesResource.data })
     }
 
     this.currentMatchResource.onReload = () => {
-      Promise.resolve(this.currentMatchResource.data).then(data => {
-        this.setState({currentMatch: data})
-      })
+      this.setState({ currentMatch: this.currentMatchResource.data })
     }
-
   }
 
   updateTime () {
     const currentTime = new Date()
     if (this.state.upcomingMatches.length > 0) {
-      let millisecondsTillNextMatch = new Date(this.state.upcomingMatches[0].startTime).getTime() - currentTime.getTime()
-      this.setState({millisecondsTillNextMatch})
-    }else {
-      this.setState({millisecondsTillNextMatch: undefined})
+      const millisecondsTillNextMatch = new Date(this.state.upcomingMatches[0].startTime).getTime() - currentTime.getTime()
+      this.setState({ millisecondsTillNextMatch })
+    } else {
+      this.setState({ millisecondsTillNextMatch: undefined })
     }
   }
 
   render () {
-
     if (this.state) {
-
-      let percentage = this.calculatePercent()
-      let text = this.getTimeText(this.state.millisecondsTillNextMatch)
+      const percentage = this.calculatePercent()
+      const text = this.getTimeText(this.state.millisecondsTillNextMatch)
 
       let timerclass = 'greenTime'
       if (this.state.millisecondsTillNextMatch >= 0 && this.state.millisecondsTillNextMatch <= this.state.colorThreshold) {
@@ -68,33 +61,31 @@ class Timer extends Component {
       }
 
       return (
-        <div className="full-height">
-          <div className="timer-container">
+        <div className='full-height'>
+          <div className='timer-container'>
             <CircularProgressbar className={timerclass}
-                                 percentage={percentage}
-                                 text={`${text}`}
-                                 strokeWidth={5}
-                                 styles={{
-                                  text: { fontSize: '0.9rem' }
-                                 }}
+              value={percentage}
+              text={`${text}`}
+              strokeWidth={5}
+              styles={{
+                text: { fontSize: '0.9rem' }
+              }}
             />
           </div>
-          <Textfit className="text-center" mode="single" max="25" forceSingleModeWidth="false">
+          <Textfit className='text-center' mode='single' max='25' forceSingleModeWidth='false'>
             Time to scheduled start of next match
           </Textfit>
         </div>
-    )
-
+      )
     } else {
       return (
         <div>Problems!</div>
       )
     }
-
   }
 
   calculatePercent () {
-    let fullCircleSeconds = 1000 * 60  * 5 // 5 minutes default
+    let fullCircleSeconds = 1000 * 60 * 5 // 5 minutes default
 
     if (!this.state.currentMatch) {
       return 100
@@ -111,25 +102,25 @@ class Timer extends Component {
 
   padNumber (number, size) {
     let s = String(number)
-    while (s.length < (size || 2)) {s = '0' + s}
+    while (s.length < (size || 2)) { s = '0' + s }
     return s
   }
 
   getTimeText (value) {
     if (value) {
-      let milliseconds = value
+      const milliseconds = value
       let delta = Math.abs(milliseconds) / 1000
-      let days = Math.floor(delta / 86400)
+      const days = Math.floor(delta / 86400)
       delta -= days * 86400
-      let hours = Math.floor(delta / 3600) % 24
+      const hours = Math.floor(delta / 3600) % 24
       delta -= hours * 3600
-      let minutes = Math.floor(delta / 60) % 60
+      const minutes = Math.floor(delta / 60) % 60
       delta -= minutes * 60
-      let seconds = Math.floor(delta % 60)
+      const seconds = Math.floor(delta % 60)
 
-      let daysString = days !== 0 ? `${this.padNumber(days, 2)}:` : ''
-      let hoursString = hours !== 0 ? `${this.padNumber(hours, 2)}:` : ''
-      let minutesPad = hours !== 0 ? 2 : 1
+      const daysString = days !== 0 ? `${this.padNumber(days, 2)}:` : ''
+      const hoursString = hours !== 0 ? `${this.padNumber(hours, 2)}:` : ''
+      const minutesPad = hours !== 0 ? 2 : 1
       return `${milliseconds < 0 ? '-' : '+'}${daysString}${hoursString}${this.padNumber(minutes, minutesPad)}:${this.padNumber(seconds, 2)}`
     }
 
