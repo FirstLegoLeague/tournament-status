@@ -61,18 +61,18 @@ class Timer extends Component {
       }
 
       return (
-        <div className='full-height'>
-          <div className='timer-container'>
+        <div className='ui grid centered'>
+          <div className='row'>
             <CircularProgressbar className={timerclass}
               value={percentage}
               text={`${text}`}
-              strokeWidth={5}
+              strokeWidth={4}
               styles={{
                 text: { fontSize: '0.9rem' }
               }}
             />
           </div>
-          <Textfit className='text-center' mode='single' max={25} forceSingleModeWidth={false}>
+          <Textfit className='row text-center white-text' mode='single' max={25} forceSingleModeWidth={false}>
             Time to scheduled start of next match
           </Textfit>
         </div>

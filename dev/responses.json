@@ -6,7 +6,9 @@
     },
 	"tables":[
 		{ "tableId": 1, "tableName": "Table 1" },
-		{ "tableId": 2, "tableName": "Table 2" }
+		{ "tableId": 2, "tableName": "Table 2" },
+		{ "tableId": 3, "tableName": "Table 3" },
+		{ "tableId": 4, "tableName": "Table 4" }
 	],
 	"matches": [{
 		"matchId": 1,
@@ -15,7 +17,9 @@
 		"stage": "qualification",
 		"matchTeams": [
 			{ "teamNumber": 2212, "tableId": 1 },
-			{ "teamNumber": 123, "tableId": 2 }
+			{ "teamNumber": 2212, "tableId": 2 },
+			{ "teamNumber": 2212, "tableId": 3 },
+			{ "teamNumber": 123, "tableId": 4 }
 		]
 	},{
 		"matchId": 2,
@@ -23,8 +27,10 @@
 		"endTime": "2019-01-28T15:37:30.000Z",
 		"stage": "qualification",
 		"matchTeams": [
-			{ "teamNumber": 545, "tableId": 1 },
-			{ "teamNumber": 315, "tableId": 2 }
+          { "teamNumber": 2212, "tableId": 1 },
+          { "teamNumber": 2212, "tableId": 2 },
+          { "teamNumber": 2212, "tableId": 3 },
+          { "teamNumber": 123, "tableId": 4 }
 		]
 	},{
 		"matchId": 3,
@@ -32,8 +38,10 @@
 		"endTime": "2019-01-28T15:42:30.000Z",
 		"stage": "qualification",
 		"matchTeams": [
-			{ "teamNumber": 86, "tableId": 1 },
-			{ "teamNumber": 423, "tableId": 2 }
+          { "teamNumber": 2212, "tableId": 1 },
+          { "teamNumber": 2212, "tableId": 2 },
+          { "teamNumber": 2212, "tableId": 3 },
+          { "teamNumber": 123, "tableId": 4 }
 		]
 	},{
 		"matchId": 4,
@@ -41,8 +49,10 @@
 		"endTime": "2019-01-28T15:47:30.000Z",
 		"stage": "qualification",
 		"matchTeams": [
-			{ "teamNumber": 6676, "tableId": 1 },
-			{ "teamNumber": 542, "tableId": 2 }
+          { "teamNumber": 2212, "tableId": 1 },
+          { "teamNumber": 2212, "tableId": 2 },
+          { "teamNumber": 2212, "tableId": 3 },
+          { "teamNumber": 123, "tableId": 4 }
 		]
 	},{
 		"matchId": 5,
@@ -50,8 +60,10 @@
 		"endTime": "2019-01-28T15:52:30.000Z",
 		"stage": "qualification",
 		"matchTeams": [
-			{ "teamNumber": 968, "tableId": 1 },
-			{ "teamNumber": 809, "tableId": 2 }
+          { "teamNumber": 2212, "tableId": 1 },
+          { "teamNumber": 2212, "tableId": 2 },
+          { "teamNumber": 2212, "tableId": 3 },
+          { "teamNumber": 123, "tableId": 4 }
 		]
 	},{
 		"matchId": 6,
@@ -59,8 +71,10 @@
 		"endTime": "2019-01-28T15:57:30.000Z",
 		"stage": "qualification",
 		"matchTeams": [
-			{ "teamNumber": 5022, "tableId": 1 },
-			{ "teamNumber": 152, "tableId": 2 }
+          { "teamNumber": 2212, "tableId": 1 },
+          { "teamNumber": 2212, "tableId": 2 },
+          { "teamNumber": 2212, "tableId": 3 },
+          { "teamNumber": 123, "tableId": 4 }
 		]
 	}]
 }

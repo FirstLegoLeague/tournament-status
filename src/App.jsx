@@ -14,6 +14,7 @@ import CurrentMatch from './js/components/CurrentMatch.jsx'
 import Environment from './js/services/env'
 import SettingsButton from './js/components/SettingsButton.jsx'
 import isFullscreen from './js/services/fullscreen'
+import { Grid } from 'semantic-ui-react'
 
 export default class App extends Component {
   constructor (props) {
@@ -37,23 +38,23 @@ export default class App extends Component {
   render () {
     return (
       <div className={`wrapper ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
-        <div className='ui grid container'>
-          <div className='row'>
-              <div className='one wide column white-text'>
+        <Grid centered container>
+          <Grid.Row>
+              <Grid.Column className='white-text'>
                 <h4><Clock format={'HH:mm:ss'} ticking /></h4>
                 <CurrentMatch />
-              </div>
-              <div className='fourteen wide column'>
+              </Grid.Column>
+              <Grid.Column width={14}>
                 <Timer />
-              </div>
-              <div className='one wide column'>
+              </Grid.Column>
+              <Grid.Column>
                 <SettingsButton />
-              </div>
-          </div>
-          <div className='row'>
+              </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
             <TeamsTable />
-          </div>
-        </div>
+          </Grid.Row>
+        </Grid>
         <ReactResizeDetector handleWidth handleHeight onResize={() => this.setState({ isFullscreen: isFullscreen() })} />
       </div>
     )

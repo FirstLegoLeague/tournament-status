@@ -60,7 +60,7 @@ export default class TeamsTable extends Component {
         })
         matchesRender.push(<div className='column'><Match match={match}/></div>)
       }
-      return <div className='ui equal width grid'>
+      return <div className='ui equal width centered celled grid'>
         {matchesRender}
       </div>
     }
