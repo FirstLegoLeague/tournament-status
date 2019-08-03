@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 import Clock from 'react-live-clock'
 import axios from 'axios'
-import '@first-lego-league/user-interface/current/assets/js/app.js'
-import '@first-lego-league/user-interface/current/assets/css/app.css'
+import '@first-lego-league/user-interface/current/app.js'
+import '@first-lego-league/user-interface/current/app.css'
 
 import 'react-circular-progressbar/dist/styles.css'
 import './App.scss'
@@ -37,22 +37,20 @@ export default class App extends Component {
   render () {
     return (
       <div className={`wrapper ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
-        <div className='grid-y'>
-          <div className='cell auto'>
-            <div className='grid-x align-center full-height'>
-              <div className='cell small-2 medium-2 large-2 white-text'>
+        <div className='ui grid container'>
+          <div className='row'>
+              <div className='one wide column white-text'>
                 <h4><Clock format={'HH:mm:ss'} ticking /></h4>
                 <CurrentMatch />
               </div>
-              <div className='cell small-8 medium-8 large-8 full-height'>
+              <div className='fourteen wide column'>
                 <Timer />
               </div>
-              <div className='cell small-2 medium-2 large-2 align-right'>
+              <div className='one wide column'>
                 <SettingsButton />
               </div>
-            </div>
           </div>
-          <div className='cell grid-x align-center'>
+          <div className='row'>
             <TeamsTable />
           </div>
         </div>

@@ -25,7 +25,7 @@ export default class TeamsTable extends Component {
     this.upcomingMatchesResource = new RestResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/upcoming/${this.state.settings.nextupMatchesAmount}`), 'UpcomingMatches:reload')
 
     Settings.on('update', () => {
-      this.setState({ settings: Settings.settings })
+      this.setState({settings: Settings.settings})
       return Environment.load()
         .then(env => {
           this.upcomingMatchesResource
@@ -37,11 +37,11 @@ export default class TeamsTable extends Component {
 
   componentDidMount () {
     this.tablesResource.onReload = () => {
-      this.setState({ tables: this.tablesResource.data })
+      this.setState({tables: this.tablesResource.data})
     }
 
     this.upcomingMatchesResource.onReload = () => {
-      this.setState({ upcomingMatches: this.upcomingMatchesResource.data })
+      this.setState({upcomingMatches: this.upcomingMatchesResource.data})
     }
   }
 
@@ -58,16 +58,18 @@ export default class TeamsTable extends Component {
             tableId: table.tableId
           }
         })
-        matchesRender.push(<div className='cell auto'><Match match={match} /></div>)
+        matchesRender.push(<div className='column'><Match match={match}/></div>)
       }
-      return (<div className='grid-x grid-margin-x matches-grid'>{matchesRender}</div>)
+      return <div className='ui equal width grid'>
+        {matchesRender}
+      </div>
     }
 
     if (isArrayEmpty(this.state.upcomingMatches) && isArrayEmpty(this.state.tables) && this.state.settings.nextupMatchesAmount !== 0) {
       return (<div>No matches found!</div>)
     }
 
-    return (<div />)
+    return (<div/>)
   }
 }
 
