@@ -68,7 +68,7 @@ class SettingsButton extends Component {
       }
     })
 
-    const modalTrigger = (<Button primary
+    const modalTrigger = (<Button primary className='show-on-hover'
                                   onClick={() => this.setState({modalIsOpen: !this.state.modalIsOpen})}>
       Settings
     </Button>)
