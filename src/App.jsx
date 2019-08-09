@@ -38,23 +38,21 @@ export default class App extends Component {
   render () {
     return (
       <div className={`wrapper ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
-        <Grid centered container>
-          <Grid.Row>
-              <Grid.Column className='white-text'>
+        <Grid centered>
+              <Grid.Column width={3} className='left floated white-text'>
                 <h4><Clock format={'HH:mm:ss'} ticking /></h4>
                 <CurrentMatch />
               </Grid.Column>
-              <Grid.Column width={14}>
+              <Grid.Column width={10}>
                 <Timer />
               </Grid.Column>
-              <Grid.Column>
+              <Grid.Column width={3} className='right floated right aligned'>
                 <SettingsButton />
               </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <TeamsTable />
-          </Grid.Row>
         </Grid>
+          <div>
+            <TeamsTable />
+          </div>
         <ReactResizeDetector handleWidth handleHeight onResize={() => this.setState({ isFullscreen: isFullscreen() })} />
       </div>
     )

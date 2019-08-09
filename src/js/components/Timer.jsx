@@ -28,11 +28,11 @@ class Timer extends Component {
 
   componentDidMount () {
     this.upcomingMatchesResource.onReload = () => {
-      this.setState({ upcomingMatches: this.upcomingMatchesResource.data })
+      this.setState({upcomingMatches: this.upcomingMatchesResource.data})
     }
 
     this.currentMatchResource.onReload = () => {
-      this.setState({ currentMatch: this.currentMatchResource.data })
+      this.setState({currentMatch: this.currentMatchResource.data})
     }
   }
 
@@ -40,9 +40,9 @@ class Timer extends Component {
     const currentTime = new Date()
     if (this.state.upcomingMatches.length > 0) {
       const millisecondsTillNextMatch = new Date(this.state.upcomingMatches[0].startTime).getTime() - currentTime.getTime()
-      this.setState({ millisecondsTillNextMatch })
+      this.setState({millisecondsTillNextMatch})
     } else {
-      this.setState({ millisecondsTillNextMatch: undefined })
+      this.setState({millisecondsTillNextMatch: undefined})
     }
   }
 
@@ -63,12 +63,13 @@ class Timer extends Component {
       return (
         <div className='ui grid centered'>
           <div className='row'>
-            <CircularProgressbar className={timerclass}
+            <CircularProgressbar
+              className={timerclass}
               value={percentage}
               text={`${text}`}
               strokeWidth={4}
               styles={{
-                text: { fontSize: '0.9rem' }
+                text: {fontSize: '0.9rem'}
               }}
             />
           </div>
