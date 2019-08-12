@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Modal from 'react-foundation-modal'
 
 import Settings from '../services/settings'
 import '../../css/components/settings.css'
+import { Button, Header, Checkbox, Modal, Input } from 'semantic-ui-react'
 
 const SETTINGS_METADATA = {
   nextupMatchesAmount: {
@@ -23,7 +23,7 @@ class SettingsButton extends Component {
     }
 
     Settings.on('update', () => {
-      this.setState({ settings: Settings.settings })
+      this.setState({settings: Settings.settings})
     })
   }
 
@@ -42,22 +42,20 @@ class SettingsButton extends Component {
     const min = setting.metadata.min ? setting.metadata.min : -999
     const max = setting.metadata.max ? setting.metadata.max : 999
     return (
-      <div className='setting grid-x'>
+      <div className='setting'>
         <div>{setting.metadata.display}</div>
-        <input type='number' id={setting.key} name={setting.key} value={setting.value}
-          onChange={event => Settings.set(setting.key, event.target.value)}
-          min={min} max={max} />
+        <Input fluid type='number' id={setting.key} name={setting.key} value={setting.value}
+               onChange={event => Settings.set(setting.key, event.target.value)}
+               min={min} max={max}/>
       </div>)
   }
 
   renderBooleanSetting (setting) {
-    return <div className='setting grid-x'>
+    return <div className='setting row'>
       <div className='switch'>
-        <input className='switch-input' type='checkbox' id={setting.key} name={setting.key} checked={setting.value}
-          onClick={() => Settings.set(setting.key, !setting.value)} />
-        <label className='switch-paddle' for={setting.key} />
+        <Checkbox toggle label={setting.metadata.display} className='switch-input' id={setting.key} name={setting.key} checked={setting.value}
+               onClick={() => Settings.set(setting.key, !setting.value)}/>
       </div>
-      <div>{setting.metadata.display}</div>
     </div>
   }
 
@@ -69,18 +67,24 @@ class SettingsButton extends Component {
         value: this.state.settings[key]
       }
     })
-    return [
-      <div className='settings show-on-hover button'
-        onClick={() => this.setState({ modalIsOpen: !this.state.modalIsOpen })}>
-        Settings
-      </div>,
 
-      <Modal id='settings-modal' isModal size='small' open={this.state.modalIsOpen}
-        closeModal={() => this.setState({ modalIsOpen: false })}>
-        <h1>Settings</h1>
+    const modalTrigger = (<Button primary className='show-on-hover'
+                                  onClick={() => this.setState({modalIsOpen: !this.state.modalIsOpen})}>
+      Settings
+    </Button>)
+
+    return <Modal id='settings-modal'
+                  trigger={modalTrigger}
+                  open={this.state.modalIsOpen}
+                  dimmer='blurring'
+                  closeIcon
+                  onClose={() => this.setState({modalIsOpen: false})}>
+      <Header>Settings</Header>
+      <Modal.Content>
         {settings.map(setting => this.renderSetting(setting))}
-      </Modal>
-    ]
+      </Modal.Content>
+    </Modal>
+
   }
 }
 

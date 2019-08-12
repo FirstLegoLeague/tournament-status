@@ -28,11 +28,11 @@ class Timer extends Component {
 
   componentDidMount () {
     this.upcomingMatchesResource.onReload = () => {
-      this.setState({ upcomingMatches: this.upcomingMatchesResource.data })
+      this.setState({upcomingMatches: this.upcomingMatchesResource.data})
     }
 
     this.currentMatchResource.onReload = () => {
-      this.setState({ currentMatch: this.currentMatchResource.data })
+      this.setState({currentMatch: this.currentMatchResource.data})
     }
   }
 
@@ -40,47 +40,9 @@ class Timer extends Component {
     const currentTime = new Date()
     if (this.state.upcomingMatches.length > 0) {
       const millisecondsTillNextMatch = new Date(this.state.upcomingMatches[0].startTime).getTime() - currentTime.getTime()
-      this.setState({ millisecondsTillNextMatch })
+      this.setState({millisecondsTillNextMatch})
     } else {
-      this.setState({ millisecondsTillNextMatch: undefined })
-    }
-  }
-
-  render () {
-    if (this.state) {
-      const percentage = this.calculatePercent()
-      const text = this.getTimeText(this.state.millisecondsTillNextMatch)
-
-      let timerclass = 'greenTime'
-      if (this.state.millisecondsTillNextMatch >= 0 && this.state.millisecondsTillNextMatch <= this.state.colorThreshold) {
-        timerclass = 'yellowTime'
-      } else if (this.state.millisecondsTillNextMatch < 0) {
-        timerclass = 'redTime'
-      } else if (this.state.millisecondsTillNextMatch > this.state.colorThreshold) {
-        timerclass = 'greenTime'
-      }
-
-      return (
-        <div className='full-height'>
-          <div className='timer-container'>
-            <CircularProgressbar className={timerclass}
-              value={percentage}
-              text={`${text}`}
-              strokeWidth={5}
-              styles={{
-                text: { fontSize: '0.9rem' }
-              }}
-            />
-          </div>
-          <Textfit className='text-center' mode='single' max='25' forceSingleModeWidth='false'>
-            Time to scheduled start of next match
-          </Textfit>
-        </div>
-      )
-    } else {
-      return (
-        <div>Problems!</div>
-      )
+      this.setState({millisecondsTillNextMatch: undefined})
     }
   }
 
@@ -129,6 +91,45 @@ class Timer extends Component {
 
   sortMatchesByTime (match1, match2) {
     return new Date(match1.startTime).getTime() - new Date(match2.startTime).getTime()
+  }
+
+  render () {
+    if (this.state) {
+      const percentage = this.calculatePercent()
+      const text = this.getTimeText(this.state.millisecondsTillNextMatch)
+
+      let timerclass = 'greenTime'
+      if (this.state.millisecondsTillNextMatch >= 0 && this.state.millisecondsTillNextMatch <= this.state.colorThreshold) {
+        timerclass = 'yellowTime'
+      } else if (this.state.millisecondsTillNextMatch < 0) {
+        timerclass = 'redTime'
+      } else if (this.state.millisecondsTillNextMatch > this.state.colorThreshold) {
+        timerclass = 'greenTime'
+      }
+
+      return (
+        <div className='timer-container full-height full-width'>
+          <div className='row'>
+            <CircularProgressbar
+              className={timerclass}
+              value={percentage}
+              text={`${text}`}
+              strokeWidth={4}
+              styles={{
+                text: {fontSize: '0.9rem'}
+              }}
+            />
+          </div>
+          <Textfit className='row text-center white-text' mode='single' max={25} forceSingleModeWidth={false}>
+            Time to scheduled start of next match
+          </Textfit>
+        </div>
+      )
+    } else {
+      return (
+        <div>Problems!</div>
+      )
+    }
   }
 }
 

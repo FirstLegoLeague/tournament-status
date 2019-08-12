@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 import Clock from 'react-live-clock'
 import axios from 'axios'
-import '@first-lego-league/user-interface/current/assets/js/app.js'
-import '@first-lego-league/user-interface/current/assets/css/app.css'
+import '@first-lego-league/user-interface/current/app.js'
+import '@first-lego-league/user-interface/current/app.css'
 
 import 'react-circular-progressbar/dist/styles.css'
 import './App.scss'
@@ -14,6 +14,7 @@ import CurrentMatch from './js/components/CurrentMatch.jsx'
 import Environment from './js/services/env'
 import SettingsButton from './js/components/SettingsButton.jsx'
 import isFullscreen from './js/services/fullscreen'
+import { Grid } from 'semantic-ui-react'
 
 export default class App extends Component {
   constructor (props) {
@@ -35,29 +36,27 @@ export default class App extends Component {
   }
 
   render () {
-    return (
-      <div className={`wrapper ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
-        <div className='grid-y'>
-          <div className='cell auto'>
-            <div className='grid-x align-center full-height'>
-              <div className='cell small-2 medium-2 large-2 white-text'>
-                <h4><Clock format={'HH:mm:ss'} ticking /></h4>
-                <CurrentMatch />
-              </div>
-              <div className='cell small-8 medium-8 large-8 full-height'>
-                <Timer />
-              </div>
-              <div className='cell small-2 medium-2 large-2 align-right'>
-                <SettingsButton />
-              </div>
-            </div>
-          </div>
-          <div className='cell grid-x align-center'>
+    return [
+      <Grid centered padded className={`full-height ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
+        <Grid.Row style={{height: 'calc(100% - 10rem)'}}>
+          <Grid.Column width={3} className='left floated white-text full-height'>
+            <h4><Clock format={'HH:mm:ss'} ticking /></h4>
+            <CurrentMatch />
+          </Grid.Column>
+          <Grid.Column width={10} className='full-height'>
+            <Timer />
+          </Grid.Column>
+          <Grid.Column width={3} className='right floated right aligned full-height'>
+            <SettingsButton />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row style={{height: '10rem'}}>
+          <Grid.Column width={16}>
             <TeamsTable />
-          </div>
-        </div>
-        <ReactResizeDetector handleWidth handleHeight onResize={() => this.setState({ isFullscreen: isFullscreen() })} />
-      </div>
-    )
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>,
+      <ReactResizeDetector handleWidth handleHeight onResize={() => this.setState({ isFullscreen: isFullscreen() })} />
+    ]
   }
 }
