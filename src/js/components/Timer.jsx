@@ -46,45 +46,6 @@ class Timer extends Component {
     }
   }
 
-  render () {
-    if (this.state) {
-      const percentage = this.calculatePercent()
-      const text = this.getTimeText(this.state.millisecondsTillNextMatch)
-
-      let timerclass = 'greenTime'
-      if (this.state.millisecondsTillNextMatch >= 0 && this.state.millisecondsTillNextMatch <= this.state.colorThreshold) {
-        timerclass = 'yellowTime'
-      } else if (this.state.millisecondsTillNextMatch < 0) {
-        timerclass = 'redTime'
-      } else if (this.state.millisecondsTillNextMatch > this.state.colorThreshold) {
-        timerclass = 'greenTime'
-      }
-
-      return (
-        <div className='ui grid centered'>
-          <div className='row'>
-            <CircularProgressbar
-              className={timerclass}
-              value={percentage}
-              text={`${text}`}
-              strokeWidth={4}
-              styles={{
-                text: {fontSize: '0.9rem'}
-              }}
-            />
-          </div>
-          <Textfit className='row text-center white-text' mode='single' max={25} forceSingleModeWidth={false}>
-            Time to scheduled start of next match
-          </Textfit>
-        </div>
-      )
-    } else {
-      return (
-        <div>Problems!</div>
-      )
-    }
-  }
-
   calculatePercent () {
     let fullCircleSeconds = 1000 * 60 * 5 // 5 minutes default
 
@@ -130,6 +91,45 @@ class Timer extends Component {
 
   sortMatchesByTime (match1, match2) {
     return new Date(match1.startTime).getTime() - new Date(match2.startTime).getTime()
+  }
+
+  render () {
+    if (this.state) {
+      const percentage = this.calculatePercent()
+      const text = this.getTimeText(this.state.millisecondsTillNextMatch)
+
+      let timerclass = 'greenTime'
+      if (this.state.millisecondsTillNextMatch >= 0 && this.state.millisecondsTillNextMatch <= this.state.colorThreshold) {
+        timerclass = 'yellowTime'
+      } else if (this.state.millisecondsTillNextMatch < 0) {
+        timerclass = 'redTime'
+      } else if (this.state.millisecondsTillNextMatch > this.state.colorThreshold) {
+        timerclass = 'greenTime'
+      }
+
+      return (
+        <div className='timer-container full-height full-width'>
+          <div className='row'>
+            <CircularProgressbar
+              className={timerclass}
+              value={percentage}
+              text={`${text}`}
+              strokeWidth={4}
+              styles={{
+                text: {fontSize: '0.9rem'}
+              }}
+            />
+          </div>
+          <Textfit className='row text-center white-text' mode='single' max={25} forceSingleModeWidth={false}>
+            Time to scheduled start of next match
+          </Textfit>
+        </div>
+      )
+    } else {
+      return (
+        <div>Problems!</div>
+      )
+    }
   }
 }
 

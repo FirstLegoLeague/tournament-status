@@ -36,25 +36,27 @@ export default class App extends Component {
   }
 
   render () {
-    return (
-      <div className={`wrapper ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
-        <Grid centered>
-              <Grid.Column width={3} className='left floated white-text'>
-                <h4><Clock format={'HH:mm:ss'} ticking /></h4>
-                <CurrentMatch />
-              </Grid.Column>
-              <Grid.Column width={10}>
-                <Timer />
-              </Grid.Column>
-              <Grid.Column width={3} className='right floated right aligned'>
-                <SettingsButton />
-              </Grid.Column>
-        </Grid>
-          <div>
+    return [
+      <Grid centered padded className={`full-height ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
+        <Grid.Row style={{height: 'calc(100% - 10rem)'}}>
+          <Grid.Column width={3} className='left floated white-text full-height'>
+            <h4><Clock format={'HH:mm:ss'} ticking /></h4>
+            <CurrentMatch />
+          </Grid.Column>
+          <Grid.Column width={10} className='full-height'>
+            <Timer />
+          </Grid.Column>
+          <Grid.Column width={3} className='right floated right aligned full-height'>
+            <SettingsButton />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row style={{height: '10rem'}}>
+          <Grid.Column width={16}>
             <TeamsTable />
-          </div>
-        <ReactResizeDetector handleWidth handleHeight onResize={() => this.setState({ isFullscreen: isFullscreen() })} />
-      </div>
-    )
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>,
+      <ReactResizeDetector handleWidth handleHeight onResize={() => this.setState({ isFullscreen: isFullscreen() })} />
+    ]
   }
 }

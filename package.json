@@ -22,7 +22,7 @@
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "@first-lego-league/eslint-config": "^1.0.0",
-    "@first-lego-league/user-interface": "2.0.3",
+    "@first-lego-league/user-interface": "^2.1.2",
     "axios": "^0.19.0",
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",

@@ -708,10 +708,10 @@
   resolved "https://registry.yarnpkg.com/@first-lego-league/eslint-config/-/eslint-config-1.0.0.tgz#897677bf32a4ea842bbf4e3a63b225d6a044d4a4"
   integrity sha512-FYWnInc/zvbnV794tOhQS44qVVi4d9XJkJRWiZo7luWmwkJg8evP+vi7623klw7UrSsPv8q8J1nSHllh3ks4UQ==
 
-"@first-lego-league/user-interface@2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-2.0.3.tgz#80a45ae540439cf948dc80ea7b3f946e835401cb"
-  integrity sha512-C5rOc4FEkKWMx1f672rlB8IIjlPTvhXGZQyoLnbyuueacN1uQG4I3AFlgXVvulJNUm2cBKPf7k4EWenyflRCSA==
+"@first-lego-league/user-interface@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@first-lego-league/user-interface/-/user-interface-2.1.2.tgz#ab2021f5fd8c3012d0a9aa1493432b5eb6e30472"
+  integrity sha512-pjFdQSCphLIU3/lvsK3R6npHYEBKMDhWWCXekGBdrL4t36TXOWURiTb5HiVYybJ0l7BK6MVAtidoKEHZKNmGEg==
 
 "@semantic-ui-react/event-stack@^3.1.0":
   version "3.1.0"

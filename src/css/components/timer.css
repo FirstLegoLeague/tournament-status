@@ -4,6 +4,13 @@
     --aheadTime: green;
 }
 
+.timer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .CircularProgressbar{
     height: 100%;
     width: 100%;
