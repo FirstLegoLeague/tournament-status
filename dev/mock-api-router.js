@@ -39,7 +39,7 @@ router.get('/match/current', (req, res) => {
 
 router.get('/match/upcoming/:count', (req, res) => {
   const responses = mockResponses()
-  res.send(responses.matches.slice(1, 3))
+  res.send(responses.matches.slice(1, req.params.count + 1))
 })
 
 router.get('/match/upcoming', (req, res) => {
