@@ -44,6 +44,11 @@
     stroke: white;
 }
 
-.timer-container {
+.timer-container > :first-child {
     height: calc(100% - 3rem);
+    width: 100%;
+}
+
+.timer-container > :last-child {
+    height: 3rem;
 }
