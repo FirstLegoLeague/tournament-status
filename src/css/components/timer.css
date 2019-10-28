@@ -45,10 +45,11 @@
 }
 
 .timer-container > :first-child {
-    height: calc(100% - 3rem);
+    height: calc(100% - 1rem);
     width: 100%;
 }
 
 .timer-container > :last-child {
-    height: 3rem;
+    margin-top: 1rem;
+    height: 1rem;
 }
