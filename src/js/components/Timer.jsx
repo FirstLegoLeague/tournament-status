@@ -120,9 +120,7 @@ class Timer extends Component {
               }}
             />
           </div>
-          <Textfit className='row text-center white-text' mode='single' max={25} forceSingleModeWidth={false}>
-            Time to scheduled start of next match
-          </Textfit>
+          <div className='white-text'>Time to scheduled start of next match</div>
         </div>
       )
     } else {
