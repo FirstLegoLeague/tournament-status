@@ -30,7 +30,7 @@ export default class CurrentMatch extends Component {
   render () {
     let currentMatchRender = ''
     if (this.state.currentMatch && this.state.currentMatch.matchId > 0 && this.state.currentStage) {
-      currentMatchRender = <h3>{upperCaseFirstIfLetter(this.state.currentStage)} #{this.state.currentMatch.matchId}</h3>
+      currentMatchRender = <h1 className='ui huge inverted header current-match'>{upperCaseFirstIfLetter(this.state.currentStage)} #{this.state.currentMatch.matchId}</h1>
     }
 
     return (<span>{currentMatchRender}</span>)

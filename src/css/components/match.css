@@ -11,3 +11,15 @@
 .italic {
     font-style: italic;
 }
+
+.metadata-column {
+	display: flex !important;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center; 
+}
+
+.current-match, .clock {
+	font-size: 5rem !important;
+	text-align: center;
+}

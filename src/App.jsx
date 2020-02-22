@@ -39,18 +39,20 @@ export default class App extends Component {
     return [
       <Grid centered padded className={`full-height ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
         <Grid.Row style={{height: 'calc(100% - 10rem)'}}>
-          <Grid.Column width={3} className='left floated white-text full-height'>
-            <h4><Clock format={'HH:mm:ss'} ticking /></h4>
-            <CurrentMatch />
-          </Grid.Column>
-          <Grid.Column width={10} className='full-height'>
-            <Timer />
-          </Grid.Column>
-          <Grid.Column width={3} className='right floated right aligned full-height'>
+          <Grid.Column width={1} className='left floated full-height'>
             <SettingsButton />
           </Grid.Column>
+          <Grid.Column width={6} className='white-text full-height metadata-column'>
+            <h4><Clock className='clock' format={'HH:mm:ss'} ticking /></h4>
+            <CurrentMatch />
+          </Grid.Column>
+          <Grid.Column width={8} className='full-height'>
+            <Timer />
+          </Grid.Column>
+          <Grid.Column width={1}>
+          </Grid.Column>
         </Grid.Row>
-        <Grid.Row style={{height: '10rem'}}>
+        <Grid.Row style={{ height: '10rem' }}>
           <Grid.Column width={16}>
             <TeamsTable />
           </Grid.Column>

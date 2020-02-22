@@ -114,9 +114,9 @@ class Timer extends Component {
               className={timerclass}
               value={percentage}
               text={`${text}`}
-              strokeWidth={4}
+              strokeWidth={12}
               styles={{
-                text: {fontSize: '0.9rem'}
+                text: { fontSize: '0.9rem' }
               }}
             />
           </div>
