@@ -3,7 +3,6 @@ import { CircularProgressbar } from 'react-circular-progressbar'
 
 import 'react-circular-progressbar/dist/styles.css'
 import '../../css/components/timer.css'
-import { Textfit } from 'react-textfit'
 
 import Environment from '../services/env'
 import MhubResource from '../classes/MhubResource'
@@ -28,11 +27,11 @@ class Timer extends Component {
 
   componentDidMount () {
     this.upcomingMatchesResource.onReload = () => {
-      this.setState({upcomingMatches: this.upcomingMatchesResource.data})
+      this.setState({ upcomingMatches: this.upcomingMatchesResource.data })
     }
 
     this.currentMatchResource.onReload = () => {
-      this.setState({currentMatch: this.currentMatchResource.data})
+      this.setState({ currentMatch: this.currentMatchResource.data })
     }
   }
 
@@ -40,9 +39,9 @@ class Timer extends Component {
     const currentTime = new Date()
     if (this.state.upcomingMatches.length > 0) {
       const millisecondsTillNextMatch = new Date(this.state.upcomingMatches[0].startTime).getTime() - currentTime.getTime()
-      this.setState({millisecondsTillNextMatch})
+      this.setState({ millisecondsTillNextMatch })
     } else {
-      this.setState({millisecondsTillNextMatch: undefined})
+      this.setState({ millisecondsTillNextMatch: undefined })
     }
   }
 

@@ -6,6 +6,8 @@ import '@first-lego-league/user-interface/current/app.js'
 import '@first-lego-league/user-interface/current/app.css'
 
 import 'react-circular-progressbar/dist/styles.css'
+import { Grid } from 'semantic-ui-react'
+
 import './App.scss'
 
 import TeamsTable from './js/components/TeamsTable.jsx'
@@ -14,15 +16,20 @@ import CurrentMatch from './js/components/CurrentMatch.jsx'
 import Environment from './js/services/env'
 import SettingsButton from './js/components/SettingsButton.jsx'
 import isFullscreen from './js/services/fullscreen'
-import { Grid } from 'semantic-ui-react'
+import Settings from './js/services/settings.js'
 
 export default class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
       tables: [],
-      isFullscreen: isFullscreen()
+      isFullscreen: isFullscreen(),
+      settings: Settings.settings
     }
+
+    Settings.on('update', () => {
+      this.setState({ settings: Settings.settings })
+    })
   }
 
   componentDidMount () {
@@ -43,7 +50,7 @@ export default class App extends Component {
             <SettingsButton />
           </Grid.Column>
           <Grid.Column width={6} className='white-text full-height metadata-column'>
-            <h4><Clock className='clock' format={'HH:mm:ss'} ticking /></h4>
+            <h4><Clock className='clock' format={this.state.settings.clock12HoursMode ? 'h:mm:ss A' : 'HH:mm:ss'} ticking /></h4>
             <CurrentMatch />
           </Grid.Column>
           <Grid.Column width={8} className='full-height'>
