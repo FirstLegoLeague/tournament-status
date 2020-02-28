@@ -1,6 +1,6 @@
 {
   "name": "@first-lego-league/tournament-status",
-  "version": "1.3.3",
+  "version": "1.3.3-new-ui",
   "scripts": {
     "clean": "rimraf ./dist",
     "build": "webpack --mode production",
