@@ -12,7 +12,7 @@ const SETTINGS_METADATA = {
     max: 5
   },
   clock12HoursMode: {
-    display: 'Clock 12 Hours mode',
+    display: 'Use 12-hour time format',
     type: 'boolean'
   }
 }
