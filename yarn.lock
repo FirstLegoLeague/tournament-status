@@ -4463,7 +4463,7 @@ moment@2.19.3:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.3.tgz#bdb99d270d6d7fda78cc0fbace855e27fe7da69f"
   integrity sha1-vbmdJw1tf9p4zA+6zoVeJ/59pp8=
 
-"moment@>= 2.9.0":
+"moment@>= 2.9.0", moment@^2.24.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
@@ -5548,11 +5548,6 @@ react-textfit@^1.1.0:
   dependencies:
     process "^0.11.9"
     prop-types "^15.5.10"
-
-react-time-format@0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/react-time-format/-/react-time-format-0.0.5.tgz#d9c967ec68c9a262fc37c3dd3a381da5bde08e83"
-  integrity sha1-2cln7GjJomL8N8PdOjgdpb3gjoM=
 
 react@^16.4.2:
   version "16.9.0"

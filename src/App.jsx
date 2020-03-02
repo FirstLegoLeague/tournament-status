@@ -6,6 +6,8 @@ import '@first-lego-league/user-interface/current/app.js'
 import '@first-lego-league/user-interface/current/app.css'
 
 import 'react-circular-progressbar/dist/styles.css'
+import { Grid } from 'semantic-ui-react'
+
 import './App.scss'
 
 import TeamsTable from './js/components/TeamsTable.jsx'
@@ -14,15 +16,20 @@ import CurrentMatch from './js/components/CurrentMatch.jsx'
 import Environment from './js/services/env'
 import SettingsButton from './js/components/SettingsButton.jsx'
 import isFullscreen from './js/services/fullscreen'
-import { Grid } from 'semantic-ui-react'
+import Settings from './js/services/settings.js'
 
 export default class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
       tables: [],
-      isFullscreen: isFullscreen()
+      isFullscreen: isFullscreen(),
+      settings: Settings.settings
     }
+
+    Settings.on('update', () => {
+      this.setState({ settings: Settings.settings })
+    })
   }
 
   componentDidMount () {
@@ -39,18 +46,20 @@ export default class App extends Component {
     return [
       <Grid centered padded className={`full-height ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
         <Grid.Row style={{height: 'calc(100% - 10rem)'}}>
-          <Grid.Column width={3} className='left floated white-text full-height'>
-            <h4><Clock format={'HH:mm:ss'} ticking /></h4>
-            <CurrentMatch />
-          </Grid.Column>
-          <Grid.Column width={10} className='full-height'>
-            <Timer />
-          </Grid.Column>
-          <Grid.Column width={3} className='right floated right aligned full-height'>
+          <Grid.Column width={1} className='left floated full-height'>
             <SettingsButton />
           </Grid.Column>
+          <Grid.Column width={6} className='white-text full-height metadata-column'>
+            <h4><Clock className='clock' format={this.state.settings.clock12HoursMode ? 'h:mm:ss A' : 'HH:mm:ss'} ticking /></h4>
+            <CurrentMatch />
+          </Grid.Column>
+          <Grid.Column width={8} className='full-height'>
+            <Timer />
+          </Grid.Column>
+          <Grid.Column width={1}>
+          </Grid.Column>
         </Grid.Row>
-        <Grid.Row style={{height: '10rem'}}>
+        <Grid.Row style={{ height: '10rem' }}>
           <Grid.Column width={16}>
             <TeamsTable />
           </Grid.Column>

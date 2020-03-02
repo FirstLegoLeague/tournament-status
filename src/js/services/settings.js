@@ -1,7 +1,8 @@
 import EventEmitter from 'event-emitter-es6'
 
 const DEFAULT_SETTINGS = {
-  nextupMatchesAmount: 2
+  nextupMatchesAmount: 2,
+  clock12HoursMode: false
 }
 const SETTINGS_KEY = 'settings'
 

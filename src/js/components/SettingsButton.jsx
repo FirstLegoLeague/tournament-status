@@ -10,6 +10,10 @@ const SETTINGS_METADATA = {
     type: 'number',
     min: 0,
     max: 5
+  },
+  clock12HoursMode: {
+    display: 'Use 12-hour time format',
+    type: 'boolean'
   }
 }
 
@@ -45,8 +49,8 @@ class SettingsButton extends Component {
       <div className='setting'>
         <div>{setting.metadata.display}</div>
         <Input fluid type='number' id={setting.key} name={setting.key} value={setting.value}
-               onChange={event => Settings.set(setting.key, event.target.value)}
-               min={min} max={max}/>
+          onChange={event => Settings.set(setting.key, event.target.value)}
+          min={min} max={max}/>
       </div>)
   }
 
@@ -54,7 +58,7 @@ class SettingsButton extends Component {
     return <div className='setting row'>
       <div className='switch'>
         <Checkbox toggle label={setting.metadata.display} className='switch-input' id={setting.key} name={setting.key} checked={setting.value}
-               onClick={() => Settings.set(setting.key, !setting.value)}/>
+          onClick={() => Settings.set(setting.key, !setting.value)}/>
       </div>
     </div>
   }
@@ -69,22 +73,21 @@ class SettingsButton extends Component {
     })
 
     const modalTrigger = (<Button primary className='show-on-hover'
-                                  onClick={() => this.setState({modalIsOpen: !this.state.modalIsOpen})}>
+      onClick={() => this.setState({modalIsOpen: !this.state.modalIsOpen})}>
       Settings
     </Button>)
 
     return <Modal id='settings-modal'
-                  trigger={modalTrigger}
-                  open={this.state.modalIsOpen}
-                  dimmer='blurring'
-                  closeIcon
-                  onClose={() => this.setState({modalIsOpen: false})}>
+      trigger={modalTrigger}
+      open={this.state.modalIsOpen}
+      dimmer='blurring'
+      closeIcon
+      onClose={() => this.setState({ modalIsOpen: false })}>
       <Header>Settings</Header>
       <Modal.Content>
         {settings.map(setting => this.renderSetting(setting))}
       </Modal.Content>
     </Modal>
-
   }
 }
 

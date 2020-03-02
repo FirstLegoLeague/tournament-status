@@ -1,3 +1,7 @@
-h1, .setting{
+h1, .setting {
     color: unset;
+}
+
+.setting:not(:first-child) {
+	margin-top: 1rem;
 }
