@@ -43,7 +43,7 @@ export default class Match extends Component {
         </div>
         <div className='row italic'>
           <Textfit className='column text-center' mode='single' max={20} forceSingleModeWidth={false}>
-            {moment(this.props.match.startTime).format(this.state.settings.clock12HoursMode ? 'h:mm:ss A' : 'HH:mm:ss')}
+            {moment(this.props.match.startTime).format(Settings.clockFormat())}
           </Textfit>
         </div>
         <div className='row'>

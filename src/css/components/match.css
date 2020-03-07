@@ -19,7 +19,20 @@
 	align-items: center; 
 }
 
-.current-match, .clock {
-	font-size: 5rem !important;
-	text-align: center;
+.clock, .current-match, .current-stage {
+	line-height: 1em;
+}
+
+.clock {
+	font-size: 8rem !important;
+    white-space: nowrap;
+}
+
+.current-stage {
+	font-size: 4rem !important;
+
+}
+
+.current-match {
+	font-size: 20rem !important;
 }
