@@ -45,12 +45,12 @@ export default class App extends Component {
   render () {
     return [
       <Grid centered padded className={`full-height ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
-        <Grid.Row style={{height: 'calc(100% - 10rem)'}}>
+        <Grid.Row style={{ height: 'calc(100% - 10rem)' }}>
           <Grid.Column width={1} className='left floated full-height'>
             <SettingsButton />
           </Grid.Column>
           <Grid.Column width={6} className='white-text full-height metadata-column'>
-            <h4><Clock className='clock' format={this.state.settings.clock12HoursMode ? 'h:mm:ss A' : 'HH:mm:ss'} ticking /></h4>
+            <Clock className='clock' format={Settings.clockFormat()} ticking />
             <CurrentMatch />
           </Grid.Column>
           <Grid.Column width={8} className='full-height'>

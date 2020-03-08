@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
+import { Button, Header, Checkbox, Modal, Input } from 'semantic-ui-react'
 
 import Settings from '../services/settings'
 import '../../css/components/settings.css'
-import { Button, Header, Checkbox, Modal, Input } from 'semantic-ui-react'
 
 const SETTINGS_METADATA = {
   nextupMatchesAmount: {
@@ -13,6 +13,10 @@ const SETTINGS_METADATA = {
   },
   clock12HoursMode: {
     display: 'Use 12-hour time format',
+    type: 'boolean'
+  },
+  showSeconds: {
+    display: 'Clock shows seconds',
     type: 'boolean'
   }
 }
@@ -27,7 +31,7 @@ class SettingsButton extends Component {
     }
 
     Settings.on('update', () => {
-      this.setState({settings: Settings.settings})
+      this.setState({ settings: Settings.settings })
     })
   }
 
@@ -50,7 +54,7 @@ class SettingsButton extends Component {
         <div>{setting.metadata.display}</div>
         <Input fluid type='number' id={setting.key} name={setting.key} value={setting.value}
           onChange={event => Settings.set(setting.key, event.target.value)}
-          min={min} max={max}/>
+          min={min} max={max} />
       </div>)
   }
 
@@ -58,7 +62,7 @@ class SettingsButton extends Component {
     return <div className='setting row'>
       <div className='switch'>
         <Checkbox toggle label={setting.metadata.display} className='switch-input' id={setting.key} name={setting.key} checked={setting.value}
-          onClick={() => Settings.set(setting.key, !setting.value)}/>
+          onClick={() => Settings.set(setting.key, !setting.value)} />
       </div>
     </div>
   }
@@ -73,7 +77,7 @@ class SettingsButton extends Component {
     })
 
     const modalTrigger = (<Button primary className='show-on-hover'
-      onClick={() => this.setState({modalIsOpen: !this.state.modalIsOpen})}>
+      onClick={() => this.setState({ modalIsOpen: !this.state.modalIsOpen })}>
       Settings
     </Button>)
 
