@@ -2,15 +2,21 @@ import React, { Component } from 'react'
 
 import Match from './Match.jsx'
 
-import Environment from '../services/env.js'
-import RestResource from '../classes/RestResource'
+import createTablesClient from '../services/resource_clients/tables_client'
+import createStatusClient from '../services/resource_clients/status_client'
+
 import Settings from '../services/settings'
 
 import '../../css/components/teamstable.css'
 
-export default class TeamsTable extends Component {
-  envPromise
+function isArrayEmpty (arr) {
+  if (Array.isArray(arr)) {
+    return arr.length === 0 || arr.some(x => !x)
+  }
+  return false
+}
 
+export default class TeamsTable extends Component {
   constructor (props) {
     super(props)
 
@@ -20,29 +26,28 @@ export default class TeamsTable extends Component {
       settings: Settings.settings
     }
 
-    this.envPromise = Environment.load()
-    this.tablesResource = new RestResource(Environment.load().then(env => `${env.moduleTournamentUrl}/table/all`), 'tables:reload')
-    this.upcomingMatchesResource = new RestResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/upcoming/${this.state.settings.nextupMatchesAmount}`), 'UpcomingMatches:reload')
+    createTablesClient().then(tablesClient => {
+      this.tablesClient = tablesClient
+      this.tablesClient.on('reload', () => this.setState({ tables: tablesClient.data }))
+    })
+
+    createStatusClient().then(statusClient => {
+      this.statusClient = statusClient
+      this.statusClient.on('reload', () => this.updateNextMatches())
+      this.updateNextMatches()
+    })
+
 
     Settings.on('update', () => {
       this.setState({ settings: Settings.settings })
-      return Environment.load()
-        .then(env => {
-          this.upcomingMatchesResource
-            .setUrl(`${env.moduleTournamentUrl}/match/upcoming/${Settings.settings.nextupMatchesAmount}`)
-          this.upcomingMatchesResource.load()
-        })
+      return this.updateNextMatches()
     })
   }
 
-  componentDidMount () {
-    this.tablesResource.onReload = () => {
-      this.setState({ tables: this.tablesResource.data })
-    }
-
-    this.upcomingMatchesResource.onReload = () => {
-      this.setState({ upcomingMatches: this.upcomingMatchesResource.data })
-    }
+  updateNextMatches () {
+    this.statusClient.getNextMatches(Settings.settings.nextupMatchesAmount).then(matches => {
+      this.setState({ upcomingMatches: matches })
+    })
   }
 
   render () {
@@ -71,11 +76,4 @@ export default class TeamsTable extends Component {
 
     return (<div />)
   }
-}
-
-function isArrayEmpty (arr) {
-  if (Array.isArray(arr)) {
-    return arr.length === 0 || arr.some(x => !x)
-  }
-  return false
 }

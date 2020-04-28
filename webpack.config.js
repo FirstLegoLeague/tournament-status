@@ -1,13 +1,12 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin')
-
-const { MockAPIRouter } = require('./dev/mock-api-router')
+const path = require('path')
 
 module.exports = {
   module: {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
+        exclude: new RegExp('node_modules\\'+path.sep+'(?!@first-lego-league).*'),
         use: {
           loader: 'babel-loader',
           options: {
@@ -56,7 +55,8 @@ module.exports = {
   devServer: {
     open: true,
     hot: true,
-    setup: function(app) {
+    before: function(app) {
+      const { MockAPIRouter } = require('./dev/mock-api-router')
       app.use(MockAPIRouter);
     }
   }

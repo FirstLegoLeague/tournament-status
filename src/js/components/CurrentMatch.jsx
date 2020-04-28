@@ -1,37 +1,30 @@
 import React, { Component } from 'react'
+import capitalize from 'capitalize'
 
-import MhubResource from '../classes/MhubResource'
-import Environment from '../services/env'
-import { upperCaseFirstIfLetter } from '../classes/StringUtil'
+import createStatusClient from '../services/resource_clients/status_client'
+import createSettingsClient from '../services/resource_clients/settings_client'
 
 export default class CurrentMatch extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {}
 
-    this.currentMatchResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/current`), 'CurrentMatch:reload')
-    this.currentStageResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/settings/tournamentStage`), 'tournamentStage:updated')
+    createStatusClient().then(statusClient => {
+      this.statusClient = statusClient
+      this.statusClient.on('reload', () => this.setState({ currentMatch: this.statusClient.data.nextMatchId }))
+    })
 
-    this.currentMatchResource.onReload = () => {
-      this.setState({ currentMatch: this.currentMatchResource.data })
-    }
-
-    this.currentStageResource.onReload = () => {
-      const data = this.currentStageResource.data
-
-      if (data.value) {
-        this.setState({ currentStage: data.value })
-      } else {
-        this.setState({ currentStage: data })
-      }
-    }
+    createSettingsClient().then(settingsClient => {
+      this.settingsClient = settingsClient
+      this.settingsClient.on('reload', () => this.setState({ currentStage: this.settingsClient.data.currentStage }))
+    })
   }
 
   render () {
-    if (this.state.currentMatch && this.state.currentMatch.matchId > 0 && this.state.currentStage) {
+    if (this.state.currentStage && this.state.currentMatch && this.state.currentMatch.matchId > 0) {
       return [
-        <div className='current-stage'>{upperCaseFirstIfLetter(this.state.currentStage)}</div>,
-        <div className='current-match'>#{this.state.currentMatch.matchId}</div>
+        <div className='current-stage'>{capitalize(this.state.currentStage)}</div>,
+        <div className='current-match'>#{this.state.currentMatch}</div>
       ]
     }
     return ''

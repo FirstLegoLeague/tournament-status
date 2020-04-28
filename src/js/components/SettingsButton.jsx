@@ -50,7 +50,7 @@ class SettingsButton extends Component {
     const min = setting.metadata.min ? setting.metadata.min : -999
     const max = setting.metadata.max ? setting.metadata.max : 999
     return (
-      <div className='setting'>
+      <div key={setting.key} className='setting'>
         <div>{setting.metadata.display}</div>
         <Input fluid type='number' id={setting.key} name={setting.key} value={setting.value}
           onChange={event => Settings.set(setting.key, event.target.value)}
@@ -59,7 +59,7 @@ class SettingsButton extends Component {
   }
 
   renderBooleanSetting (setting) {
-    return <div className='setting row'>
+    return <div key={setting.key} className='setting row'>
       <div className='switch'>
         <Checkbox toggle label={setting.metadata.display} className='switch-input' id={setting.key} name={setting.key} checked={setting.value}
           onClick={() => Settings.set(setting.key, !setting.value)} />

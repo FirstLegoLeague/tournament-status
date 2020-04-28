@@ -5,41 +5,37 @@ import 'react-circular-progressbar/dist/styles.css'
 import '../../css/components/timer.css'
 
 import Environment from '../services/env'
-import MhubResource from '../classes/MhubResource'
+import createStatusClient from '../services/resource_clients/status_client'
 
-const THRESHOLD_IN_MINUTES = 2
+const COLOR_THRESHOLD = 2 * 60 * 1000 // 2 minutes
 
 class Timer extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      upcomingMatches: [],
-      millisecondsTillNextMatch: 0,
-      colorThreshold: THRESHOLD_IN_MINUTES * 60 * 1000
+      nextMatchTime: undefined,
+      millisecondsTillNextMatch: 0
     }
 
-    this.upcomingMatchesResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/upcoming`), 'UpcomingMatches:reload')
-    this.currentMatchResource = new MhubResource(Environment.load().then(env => `${env.moduleTournamentUrl}/match/current`), 'CurrentMatch:reload')
+    createStatusClient().then(statusClient => {
+      this.statusClient = statusClient
+      this.statusClient.on('reload', () => {
+        if (statusClient.data.nextMatchTime) {
+          this.setState({ nextMatchTime: statusClient.data.nextMatchTime })
+        } else {
+          this.setState({ millisecondsTillNextMatch: undefined })
+        }
+      })
+    })
 
     setInterval(this.updateTime.bind(this), 1000)
   }
 
-  componentDidMount () {
-    this.upcomingMatchesResource.onReload = () => {
-      this.setState({ upcomingMatches: this.upcomingMatchesResource.data })
-    }
-
-    this.currentMatchResource.onReload = () => {
-      this.setState({ currentMatch: this.currentMatchResource.data })
-    }
-  }
-
   updateTime () {
     const currentTime = new Date()
-    if (this.state.upcomingMatches.length > 0) {
-      const millisecondsTillNextMatch = new Date(this.state.upcomingMatches[0].startTime).getTime() - currentTime.getTime()
-      this.setState({ millisecondsTillNextMatch })
+    if (this.state.nextMatchTime) {
+      this.setState({ millisecondsTillNextMatch: new Date(this.state.nextMatchTime).getTime() - currentTime.getTime() })
     } else {
       this.setState({ millisecondsTillNextMatch: undefined })
     }
@@ -48,14 +44,8 @@ class Timer extends Component {
   calculatePercent () {
     let fullCircleSeconds = 1000 * 60 * 5 // 5 minutes default
 
-    if (!this.state.currentMatch) {
-      return 100
-    }
-
-    if (this.state.upcomingMatches.length > 0) {
-      if (this.state.millisecondsTillNextMatch < 0) {
-        fullCircleSeconds = -fullCircleSeconds
-      }
+    if (this.state.millisecondsTillNextMatch < 0) {
+      fullCircleSeconds = -fullCircleSeconds
     }
 
     return ((this.state.millisecondsTillNextMatch) / fullCircleSeconds) * 100
@@ -98,11 +88,11 @@ class Timer extends Component {
       const text = this.getTimeText(this.state.millisecondsTillNextMatch)
 
       let timerclass = 'greenTime'
-      if (this.state.millisecondsTillNextMatch >= 0 && this.state.millisecondsTillNextMatch <= this.state.colorThreshold) {
+      if (this.state.millisecondsTillNextMatch >= 0 && this.state.millisecondsTillNextMatch <= COLOR_THRESHOLD) {
         timerclass = 'yellowTime'
       } else if (this.state.millisecondsTillNextMatch < 0) {
         timerclass = 'redTime'
-      } else if (this.state.millisecondsTillNextMatch > this.state.colorThreshold) {
+      } else if (this.state.millisecondsTillNextMatch > COLOR_THRESHOLD) {
         timerclass = 'greenTime'
       }
 

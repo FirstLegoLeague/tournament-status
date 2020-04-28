@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 import Clock from 'react-live-clock'
-import axios from 'axios'
 import '@first-lego-league/user-interface/current/app.js'
 import '@first-lego-league/user-interface/current/app.css'
 
@@ -17,6 +16,7 @@ import Environment from './js/services/env'
 import SettingsButton from './js/components/SettingsButton.jsx'
 import isFullscreen from './js/services/fullscreen'
 import Settings from './js/services/settings.js'
+import createTablesClient from './js/services/resource_clients/tables_client'
 
 export default class App extends Component {
   constructor (props) {
@@ -27,24 +27,19 @@ export default class App extends Component {
       settings: Settings.settings
     }
 
+    createTablesClient().then(tablesClient => {
+      this.tablesClient = tablesClient
+      this.tablesClient.on('reload', () => this.setState({ tables: tablesClient.data }))
+    })
+
     Settings.on('update', () => {
       this.setState({ settings: Settings.settings })
     })
   }
 
-  componentDidMount () {
-    return Environment.load()
-      .then(env => `${env.moduleTournamentUrl}/table/all`)
-      .then(url => { this.url = url })
-      .then(() => axios.get(this.url))
-      .then(response => {
-        this.setState({ tables: response.data })
-      })
-  }
-
   render () {
     return [
-      <Grid centered padded className={`full-height ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
+      <Grid key="main-grid" centered padded className={`full-height ${this.state.isFullscreen ? 'fullscreen' : ''}`}>
         <Grid.Row style={{ height: 'calc(100% - 10rem)' }}>
           <Grid.Column width={1} className='left floated full-height'>
             <SettingsButton />
@@ -65,7 +60,7 @@ export default class App extends Component {
           </Grid.Column>
         </Grid.Row>
       </Grid>,
-      <ReactResizeDetector handleWidth handleHeight onResize={() => this.setState({ isFullscreen: isFullscreen() })} />
+      <ReactResizeDetector key="resize" handleWidth handleHeight onResize={() => this.setState({ isFullscreen: isFullscreen() })} />
     ]
   }
 }

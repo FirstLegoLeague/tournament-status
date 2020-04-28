@@ -1,22 +1,11 @@
 import React, { Component } from 'react'
 import moment from 'moment'
+import capitalize from 'capitalize'
 
 import '../../css/components/match.css'
 import { Textfit } from 'react-textfit'
 
-import { upperCaseFirstIfLetter } from '../classes/StringUtil'
-import Settings from '../services/settings.js'
-
 export default class Match extends Component {
-  constructor () {
-    super()
-    this.state = { settings: Settings.settings }
-
-    Settings.on('update', () => {
-      this.setState({ settings: Settings.settings })
-    })
-  }
-
   componentDidMount () {}
 
   render () {
@@ -38,7 +27,7 @@ export default class Match extends Component {
       <div className='match'>
         <div className='row bold'>
           <Textfit className='column text-center' mode='single' max={20} forceSingleModeWidth={false}>
-            {upperCaseFirstIfLetter(this.props.match.stage)} #{this.props.match.matchId}
+            {capitalize(this.props.match.stage)} #{this.props.match.matchId}
           </Textfit>
         </div>
         <div className='row italic'>
