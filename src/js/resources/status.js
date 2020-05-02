@@ -4,7 +4,7 @@ class Status extends Model { }
 
 Status.initialValue = {
   nextMatchId: 0,
-  nextMatchTime: undefined
+  nextMatchTime: '05/02/2020 15:00:00'
 }
 
 Status.mockData = Status.initialValue

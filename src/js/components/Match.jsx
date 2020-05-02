@@ -1,23 +1,24 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import capitalize from 'capitalize'
+import { Textfit } from 'react-textfit'
 
 import '../../css/components/match.css'
-import { Textfit } from 'react-textfit'
+import Settings from '../services/settings'
 
 export default class Match extends Component {
   componentDidMount () {}
 
   render () {
-    const matchTeams = []
-    for (const matchTeam of this.props.match.matchTeams.filter(x => x.teamNumber)) {
-      matchTeams.push(
-        <div className='column'>
+    const teams = []
+    for (const team of this.props.match.teams.filter(x => x.teamNumber)) {
+      teams.push(
+        <div key={team.teamNumber} className='column'>
           <Textfit className='row text-center' mode='single' max={20} forceSingleModeWidth={false}>
-            {matchTeam.tableName}
+            {team.tableName}
           </Textfit>
           <Textfit className='row text-center' mode='single' max={20} forceSingleModeWidth={false}>
-            {matchTeam.teamNumber}
+            {team.teamNumber}
           </Textfit>
         </div>
       )
@@ -37,7 +38,7 @@ export default class Match extends Component {
         </div>
         <div className='row'>
           <div className='ui equal width grid'>
-            {matchTeams}
+            {teams}
           </div>
         </div>
       </div>

@@ -28,14 +28,14 @@ Match.mockData = [
     endTime: '2019-01-28T15:32:30.000Z',
     stage: 'qualification',
     teams: [
-      { teamNumber: 2468, tableId: 1 },
-      { teamNumber: 8, tableId: 2 },
-      { teamNumber: 2212, tableId: 3 },
-      { teamNumber: 123, tableId: 4 },
-      { teamNumber: 173, tableId: 5 },
-      { teamNumber: 2, tableId: 6 },
-      { teamNumber: 8846, tableId: 7 },
-      { teamNumber: 981, tableId: 8 }
+      { teamNumber: 2468, tableId: "1" },
+      { teamNumber: 8, tableId: "2" },
+      { teamNumber: 2212, tableId: "3" },
+      { teamNumber: 123, tableId: "4" },
+      { teamNumber: 173, tableId: "5" },
+      { teamNumber: 2, tableId: "6" },
+      { teamNumber: 8846, tableId: "7" },
+      { teamNumber: 981, tableId: "8" }
     ]
   },{
     matchId: 2,
@@ -43,14 +43,14 @@ Match.mockData = [
     endTime: '2019-01-28T15:37:30.000Z',
     stage: 'qualification',
     teams: [
-      { teamNumber: 2468, tableId: 1 },
-      { teamNumber: 8, tableId: 2 },
-      { teamNumber: 2212, tableId: 3 },
-      { teamNumber: 123, tableId: 4 },
-      { teamNumber: 173, tableId: 5 },
-      { teamNumber: 2, tableId: 6 },
-      { teamNumber: 8846, tableId: 7 },
-      { teamNumber: 981, tableId: 8 }
+      { teamNumber: 2468, tableId: "1" },
+      { teamNumber: 8, tableId: "2" },
+      { teamNumber: 2212, tableId: "3" },
+      { teamNumber: 123, tableId: "4" },
+      { teamNumber: 173, tableId: "5" },
+      { teamNumber: 2, tableId: "6" },
+      { teamNumber: 8846, tableId: "7" },
+      { teamNumber: 981, tableId: "8" }
     ]
   },{
     matchId: 3,
@@ -58,14 +58,14 @@ Match.mockData = [
     endTime: '2019-01-28T15:42:30.000Z',
     stage: 'qualification',
     teams: [
-      { teamNumber: 2468, tableId: 1 },
-      { teamNumber: 8, tableId: 2 },
-      { teamNumber: 2212, tableId: 3 },
-      { teamNumber: 123, tableId: 4 },
-      { teamNumber: 173, tableId: 5 },
-      { teamNumber: 2, tableId: 6 },
-      { teamNumber: 8846, tableId: 7 },
-      { teamNumber: 981, tableId: 8 }
+      { teamNumber: 2468, tableId: "1" },
+      { teamNumber: 8, tableId: "2" },
+      { teamNumber: 2212, tableId: "3" },
+      { teamNumber: 123, tableId: "4" },
+      { teamNumber: 173, tableId: "5" },
+      { teamNumber: 2, tableId: "6" },
+      { teamNumber: 8846, tableId: "7" },
+      { teamNumber: 981, tableId: "8" }
     ]
   },{
     matchId: 4,
@@ -73,14 +73,14 @@ Match.mockData = [
     endTime: '2019-01-28T15:47:30.000Z',
     stage: 'qualification',
     teams: [
-      { teamNumber: 2468, tableId: 1 },
-      { teamNumber: 8, tableId: 2 },
-      { teamNumber: 2212, tableId: 3 },
-      { teamNumber: 123, tableId: 4 },
-      { teamNumber: 173, tableId: 5 },
-      { teamNumber: 2, tableId: 6 },
-      { teamNumber: 8846, tableId: 7 },
-      { teamNumber: 981, tableId: 8 }
+      { teamNumber: 2468, tableId: "1" },
+      { teamNumber: 8, tableId: "2" },
+      { teamNumber: 2212, tableId: "3" },
+      { teamNumber: 123, tableId: "4" },
+      { teamNumber: 173, tableId: "5" },
+      { teamNumber: 2, tableId: "6" },
+      { teamNumber: 8846, tableId: "7" },
+      { teamNumber: 981, tableId: "8" }
     ]
   },{
     matchId: 5,
@@ -88,14 +88,14 @@ Match.mockData = [
     endTime: '2019-01-28T15:52:30.000Z',
     stage: 'qualification',
     teams: [
-      { teamNumber: 2468, tableId: 1 },
-      { teamNumber: 8, tableId: 2 },
-      { teamNumber: 2212, tableId: 3 },
-      { teamNumber: 123, tableId: 4 },
-      { teamNumber: 173, tableId: 5 },
-      { teamNumber: 2, tableId: 6 },
-      { teamNumber: 8846, tableId: 7 },
-      { teamNumber: 981, tableId: 8 }
+      { teamNumber: 2468, tableId: "1" },
+      { teamNumber: 8, tableId: "2" },
+      { teamNumber: 2212, tableId: "3" },
+      { teamNumber: 123, tableId: "4" },
+      { teamNumber: 173, tableId: "5" },
+      { teamNumber: 2, tableId: "6" },
+      { teamNumber: 8846, tableId: "7" },
+      { teamNumber: 981, tableId: "8" }
     ]
   },{
     matchId: 6,
@@ -103,14 +103,14 @@ Match.mockData = [
     endTime: '2019-01-28T15:57:30.000Z',
     stage: 'qualification',
     teams: [
-      { teamNumber: 2468, tableId: 1 },
-      { teamNumber: 8, tableId: 2 },
-      { teamNumber: 2212, tableId: 3 },
-      { teamNumber: 123, tableId: 4 },
-      { teamNumber: 173, tableId: 5 },
-      { teamNumber: 2, tableId: 6 },
-      { teamNumber: 8846, tableId: 7 },
-      { teamNumber: 981, tableId: 8 }
+      { teamNumber: 2468, tableId: "1" },
+      { teamNumber: 8, tableId: "2" },
+      { teamNumber: 2212, tableId: "3" },
+      { teamNumber: 123, tableId: "4" },
+      { teamNumber: 173, tableId: "5" },
+      { teamNumber: 2, tableId: "6" },
+      { teamNumber: 8846, tableId: "7" },
+      { teamNumber: 981, tableId: "8" }
     ]
   }
 ].map(attrs => new Match(attrs))

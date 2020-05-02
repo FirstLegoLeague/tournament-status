@@ -20,13 +20,6 @@ class Timer extends Component {
 
     createStatusClient().then(statusClient => {
       this.statusClient = statusClient
-      this.statusClient.on('reload', () => {
-        if (statusClient.data.nextMatchTime) {
-          this.setState({ nextMatchTime: statusClient.data.nextMatchTime })
-        } else {
-          this.setState({ millisecondsTillNextMatch: undefined })
-        }
-      })
     })
 
     setInterval(this.updateTime.bind(this), 1000)
@@ -34,8 +27,8 @@ class Timer extends Component {
 
   updateTime () {
     const currentTime = new Date()
-    if (this.state.nextMatchTime) {
-      this.setState({ millisecondsTillNextMatch: new Date(this.state.nextMatchTime).getTime() - currentTime.getTime() })
+    if (this.statusClient.data && this.statusClient.data.nextMatchTime) {
+      this.setState({ millisecondsTillNextMatch: new Date(this.statusClient.data.nextMatchTime).getTime() - currentTime.getTime() })
     } else {
       this.setState({ millisecondsTillNextMatch: undefined })
     }

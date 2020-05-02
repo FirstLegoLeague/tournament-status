@@ -10,7 +10,7 @@ const createStatusClient = () => {
     .then(statusClient => statusClient.init().then(() => statusClient))
     .then(statusClient => {
       statusClient.getNextMatches = (limit, filters) => {
-        const url = `${statusClient._resourceServerUrl}/next?filters=${filters || ''}` + (limit ? `limit=${limit}` : '')
+        const url = `${statusClient._resourceServerUrl}/next?filters=${filters || ''}` + (limit ? `&limit=${limit}` : '')
         return statusClient._client.get(url)
           .then(({ data }) => data.map(datum => new Match(datum)))
       }

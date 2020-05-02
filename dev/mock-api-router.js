@@ -2,6 +2,7 @@ const Router = require('router')
 const fs = require('fs')
 const path = require('path')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 const { MockCollectionServer, MockEntityServer } = require('@first-lego-league/synced-resources')
 
 const router = Router()
@@ -18,14 +19,17 @@ const MOCK_ENV = {
   "mhubNode": "default"
 }
 
+router.use(bodyParser.json({ limit: '50mb' }))
+router.use(bodyParser.urlencoded({ extended: true }))
+
 router.use(cors())
 
 router.get('/environment.json', (req, res) => res.send(MOCK_ENV))
-console.log(MockEntityServer)
+
 router.use('/matches', new MockCollectionServer(Match))
 router.use('/settings', new MockEntityServer(Settings))
 router.use('/status', new MockEntityServer(Status))
-router.use('/status/next', (req, res) => res.status(200).json(Match.mockData))
+router.use('/status/next', (req, res) => res.status(200).json(Match.mockData.slice(0, req.query.limit || Match.mockData.length)))
 router.use('/tables', new MockCollectionServer(Table))
 router.use('/teams', new MockCollectionServer(Team))
 

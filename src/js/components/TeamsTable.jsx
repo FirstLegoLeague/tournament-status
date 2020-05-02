@@ -29,6 +29,7 @@ export default class TeamsTable extends Component {
     createTablesClient().then(tablesClient => {
       this.tablesClient = tablesClient
       this.tablesClient.on('reload', () => this.setState({ tables: tablesClient.data }))
+      this.setState({ tables: tablesClient.data })
     })
 
     createStatusClient().then(statusClient => {
@@ -55,15 +56,15 @@ export default class TeamsTable extends Component {
       const matchesRender = []
 
       for (const match of this.state.upcomingMatches) {
-        match.matchTeams = match.matchTeams.map(matchTeam => {
-          const table = this.state.tables.find(t => t.tableId === matchTeam.tableId)
+        match.teams = match.teams.map(team => {
+          const table = this.state.tables.find(t => t.id() === team.tableId)
           return {
-            teamNumber: matchTeam.teamNumber,
+            teamNumber: team.teamNumber,
             tableName: table ? table.tableName : '--',
-            tableId: table.tableId
+            tableId: table.id()
           }
         })
-        matchesRender.push(<div className='column'><Match match={match}/></div>)
+        matchesRender.push(<div key={match.matchId} className='column'><Match match={match}/></div>)
       }
       return <div className='ui equal width centered celled padded grid'>
         {matchesRender}

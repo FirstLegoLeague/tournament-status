@@ -22,19 +22,8 @@ export default class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      tables: [],
-      isFullscreen: isFullscreen(),
-      settings: Settings.settings
+      isFullscreen: isFullscreen()
     }
-
-    createTablesClient().then(tablesClient => {
-      this.tablesClient = tablesClient
-      this.tablesClient.on('reload', () => this.setState({ tables: tablesClient.data }))
-    })
-
-    Settings.on('update', () => {
-      this.setState({ settings: Settings.settings })
-    })
   }
 
   render () {

@@ -12,11 +12,13 @@ export default class CurrentMatch extends Component {
     createStatusClient().then(statusClient => {
       this.statusClient = statusClient
       this.statusClient.on('reload', () => this.setState({ currentMatch: this.statusClient.data.nextMatchId }))
+      this.setState({ currentMatch: this.statusClient.data.nextMatchId })
     })
 
     createSettingsClient().then(settingsClient => {
       this.settingsClient = settingsClient
       this.settingsClient.on('reload', () => this.setState({ currentStage: this.settingsClient.data.currentStage }))
+      this.setState({ currentStage: this.settingsClient.data.currentStage })
     })
   }
 
